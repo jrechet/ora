@@ -162,6 +162,11 @@ docker-compose up
 
 [http://localhost:8080](http://localhost:8080)
 
+ou
+
+```bash
+docker-compose up --build 
+```
 ## Récupérer la dernière version d'ora depuis github pour l'intégrer dans votre cicd
 
 Il faut git clone le projet puis copier coller les fichiers vers votre version d'ORA. La configuration locale sera
