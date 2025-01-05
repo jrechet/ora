@@ -1,0 +1,227 @@
+/* Switch styles */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-switch {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    background-color: #bbb;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 34px;
+    transition: .4s;
+}
+
+/* Cercle blanc qui glisse */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+/* État actif */
+input:checked + .slider {
+    background-color: #2d2d2d;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Icons positioning */
+.theme-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4a4a4a;
+}
+
+[data-theme="dark"] .theme-icons {
+    color: #e4e4e4;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] {
+    background-color: #1a1a1a;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] body {
+    background-color: #1a1a1a;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .section {
+    background-color: #1a1a1a;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .container {
+    background-color: #1a1a1a;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .navbar {
+    background-color: #2d2d2d;
+    border-bottom: 1px solid #363636;
+}
+
+[data-theme="dark"] .navbar-item {
+    color: #e4e4e4 !important;
+}
+
+[data-theme="dark"] .navbar-burger span {
+    background-color: #e4e4e4;
+}
+
+[data-theme="dark"] .navbar-brand .logo {
+    color: #4ade80; /* Plus lumineux en mode sombre */
+    text-shadow: 1px 1px 1px rgba(74, 222, 128, 0.8);
+}
+
+[data-theme="dark"] .card {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .card-header {
+    background-color: #363636;
+}
+
+[data-theme="dark"] .card-header-title {
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .card-header.env-prod {
+    background-color: #1e3a1e;
+}
+
+[data-theme="dark"] .card-header.env-integration {
+    background-color: #1e3a3a;
+}
+
+[data-theme="dark"] .card-header.env-dev {
+    background-color: #3a1e1e;
+}
+
+[data-theme="dark"] .card-footer {
+    border-top: 1px solid #363636;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .monitoring-table tr {
+    border-bottom: 1px solid #363636;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .monitoring-table tr td {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .monitoring-table tr td span a nobr {
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .monitoring-table tbody tr:hover {
+    background-color: #363636;
+}
+
+[data-theme="dark"] .tag:not(.is-success):not(.is-danger):not(.is-warning) {
+    background-color: #363636;
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .button.is-ghost {
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .button.is-ghost:hover {
+    color: #3273dc;
+}
+
+[data-theme="dark"] .footer {
+    background-color: rgba(45, 45, 45, 0.95);
+    border-color: #363636;
+}
+
+[data-theme="dark"] .tabs li a {
+    color: #e4e4e4;
+    border-bottom-color: #363636;
+}
+
+[data-theme="dark"] .tabs li.is-active a {
+    color: #3273dc;
+    border-bottom-color: #3273dc;
+}
+
+[data-theme="dark"] [data-tooltip]:not([data-tooltip=""]):before {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+}
+
+/* Styles spécifiques pour les icônes en mode sombre */
+[data-theme="dark"] .icon.has-text-dark,
+[data-theme="dark"] .icon.is-medium.has-text-dark {
+    color: #e4e4e4 !important;
+}
+
+[data-theme="dark"] .fa-github,
+[data-theme="dark"] .fa-file-alt {
+    color: #e4e4e4 !important;
+}
+
+/* Styles pour les liens en mode sombre */
+[data-theme="dark"] a {
+    color: #3273dc;
+}
+
+[data-theme="dark"] a:hover {
+    color: #4a9eff;
+}
+
+[data-theme="dark"] .card-content a {
+    color: #e4e4e4;
+}
+
+[data-theme="dark"] .has-text-weight-medium {
+    color: #e4e4e4 !important;
+}
+
+/* Amélioration du contraste pour les statuts */
+[data-theme="dark"] .tag.is-success {
+    background-color: #48c78e !important;
+    color: #fff !important;
+}
+
+[data-theme="dark"] .tag.is-danger {
+    background-color: #f14668 !important;
+    color: #fff !important;
+}
+
+[data-theme="dark"] .tag.is-warning {
+    background-color: #ffe08a !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+}

@@ -1,0 +1,20 @@
+environments:
+  development:
+    applications:
+      monitoring:
+        apps:
+          test-app1:
+            global:
+              repositoryUrl: "http://app1:3000"
+              healthUrl: "/healthcheck"
+              supervisionUrl: "/supervision"
+            instances:
+              dev:
+                tenant-a:
+                  baseUrl: "http://localhost:3001"
+                tenant-b:
+                  baseUrl: "http://localhost:3002"
+              prod:
+                tenant-a:
+                  baseUrl: "http://localhost:3003"
+
