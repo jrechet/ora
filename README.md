@@ -5,6 +5,14 @@
 ORA est distribué sous forme d'image Docker pour faciliter son déploiement. Cette documentation explique comment
 utiliser l'image Docker et configurer ORA avec vos propres fichiers de configuration YAML.
 
+Voici un aperçu de l'interface d'ORA en mode standard :
+
+![Vue principale d'ORA](https://raw.githubusercontent.com/jrec/ora/main/docs/images/ora-main-view.png)
+
+Et en mode hotspot pour visualiser les problèmes :
+
+![Vue hotspot d'ORA](https://raw.githubusercontent.com/jrec/ora/main/docs/images/ora-hotspot-view.png)
+
 ## Configuration requise
 
 - Docker installé sur votre machine
