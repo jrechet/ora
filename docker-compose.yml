@@ -10,10 +10,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      no_cache: true
-      args:
-        BUILDKIT_INLINE_CACHE: 0
-    image: ora:local
     ports:
       - "8080:8080"
     volumes:

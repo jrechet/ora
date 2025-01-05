@@ -16,3 +16,4 @@ out/
 .env
 /grails-app/conf/ora/
 README-kf.md
+gitpush.sh
