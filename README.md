@@ -13,6 +13,24 @@ Et en mode hotspot pour visualiser les problèmes :
 
 ![Vue hotspot d'ORA](https://raw.githubusercontent.com/jrechet/ora/main/docs/images/ora-hotspot-view.png)
 
+### Modes de fonctionnement
+
+#### Mode backend
+
+Les appels https vers les applications monitorées sont effectuées de serveur à serveur. On évite ainsi les problème de
+CORS mais ORA doit avoir accès à tous les environnements.
+
+#### Mode frontend
+
+Les appels https vers les applications monitorées sont effectuées en xhr depuis le front. Le front gère son batch de
+refresh de manière autonome.
+
+#### Mode websocket
+
+Les appels https vers les applications monitorées sont effectuées en xhr depuis le front mais sont pilotés par le back.
+On utilise alors un client http curstom qui communique avec le front via un websocket afin d'éffectuer les appels, en
+lieu et place de restTemplate.
+
 ## Configuration requise
 
 - Docker installé sur votre machine
@@ -165,6 +183,7 @@ Pour tester ORA sur un environnement simuler, vous pouvez utiliser le fichier `d
 projet. Il suffit de lancer la commande suivante :
 
 ```bash
+./gradlew assemble
 docker-compose up
 ```
 
@@ -173,8 +192,10 @@ docker-compose up
 ou
 
 ```bash
+./gradlew assemble
 docker-compose up --build 
 ```
+
 ## Récupérer la dernière version d'ora depuis github pour l'intégrer dans votre cicd
 
 Il faut git clone le projet puis copier coller les fichiers vers votre version d'ORA. La configuration locale sera

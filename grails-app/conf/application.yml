@@ -3,7 +3,7 @@ monitoring:
   cache:
     refresh-rate: 60000    # interval de refresh du back en ms
   refresh:
-    interval: 30000       # interval de refersh du front en ms
+    interval: 3000000       # interval de refersh du front en ms
 ---
 gitlab:
   url: "https://gitlab.com"

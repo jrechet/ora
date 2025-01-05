@@ -1,11 +1,10 @@
-// toggle.js
-var ModeToggle = {
+let ModeToggle = {
     COOKIE_NAME: 'monitoring_mode',
     COOKIE_EXPIRES_DAYS: 30,
 
-    initialize: function() {
+    initialize: function () {
         this.toggle = document.querySelector('.mode-toggle');
-        if (!this.toggle) return; // Protection si l'élément n'existe pas
+        if (!this.toggle) return;
 
         this.slider = this.toggle.querySelector('.mode-slider');
         this.options = this.toggle.querySelectorAll('.mode-option');
@@ -15,18 +14,18 @@ var ModeToggle = {
         this.setupWebSocketListener();
     },
 
-    determineInitialMode: function() {
+    determineInitialMode: function () {
         // Vérifier d'abord le cookie
-        var savedMode = this.getCookie(this.COOKIE_NAME);
+        let savedMode = this.getCookie(this.COOKIE_NAME);
         if (savedMode) {
-            var option = this.toggle.querySelector('.mode-option[data-mode="' + savedMode + '"]');
+            let option = this.toggle.querySelector('.mode-option[data-mode="' + savedMode + '"]');
             if (option && !option.classList.contains('disabled-mode')) {
                 return savedMode;
             }
         }
 
         // Vérifier ensuite le mode server
-        var serverOption = this.toggle.querySelector('.mode-option[data-mode="server"]');
+        let serverOption = this.toggle.querySelector('.mode-option[data-mode="server"]');
         if (serverOption && !serverOption.classList.contains('disabled-mode')) {
             return 'server';
         }
@@ -35,10 +34,10 @@ var ModeToggle = {
         return 'autonomous';
     },
 
-    setupWebSocketListener: function() {
-        var self = this;
-        MonitoringEventBus.on(MonitoringEventBus.EventTypes.WEBSOCKET_STATUS, function(event) {
-            var wsOption = self.toggle.querySelector('.mode-option[data-mode="websocket"]');
+    setupWebSocketListener: function () {
+        let self = this;
+        MonitoringEventBus.on(MonitoringEventBus.EventTypes.WEBSOCKET_STATUS, function (event) {
+            let wsOption = self.toggle.querySelector('.mode-option[data-mode="websocket"]');
             if (wsOption) {
                 if (event.detail.available) {
                     wsOption.classList.remove('disabled-mode');
@@ -47,7 +46,7 @@ var ModeToggle = {
                     wsOption.classList.add('disabled-mode');
                     wsOption.title = 'WebSocket Not Available';
                     if (self.currentMode === 'websocket') {
-                        var newMode = self.determineFirstAvailableMode();
+                        let newMode = self.determineFirstAvailableMode();
                         self.switchMode(newMode);
                     }
                 }
@@ -55,17 +54,17 @@ var ModeToggle = {
         });
     },
 
-    initializeMode: function() {
-        var self = this;
-        for (var i = 0; i < this.options.length; i++) {
-            var option = this.options[i];
+    initializeMode: function () {
+        let self = this;
+        for (let i = 0; i < this.options.length; i++) {
+            let option = this.options[i];
 
             if (option.classList.contains('disabled-mode')) {
-                var modeName = option.querySelector('span:not(.icon)').textContent;
+                let modeName = option.querySelector('span:not(.icon)').textContent;
                 option.title = modeName + ' Not Available';
             } else {
-                option.addEventListener('click', function(e) {
-                    var mode = e.currentTarget.getAttribute('data-mode');
+                option.addEventListener('click', function (e) {
+                    let mode = e.currentTarget.getAttribute('data-mode');
                     self.switchMode(mode);
                 });
             }
@@ -75,11 +74,11 @@ var ModeToggle = {
         document.body.setAttribute('data-current-mode', this.currentMode);
     },
 
-    switchMode: function(newMode) {
-        var self = this;
+    switchMode: function (newMode) {
+        let self = this;
         if (this.currentMode === newMode) return;
 
-        var targetOption = this.toggle.querySelector('.mode-option[data-mode="' + newMode + '"]');
+        let targetOption = this.toggle.querySelector('.mode-option[data-mode="' + newMode + '"]');
         if (targetOption && targetOption.classList.contains('disabled-mode')) {
             console.warn('Attempted to switch to disabled mode:', newMode);
             return;
@@ -91,10 +90,10 @@ var ModeToggle = {
                 'Content-Type': 'application/json'
             }
         })
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(result) {
+            .then(function (result) {
                 if (!result.success) {
                     throw new Error(result.error || 'Mode switch failed');
                 }
@@ -108,16 +107,16 @@ var ModeToggle = {
                     mode: newMode
                 });
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error('Error switching mode:', error);
                 self.updateSlider(self.currentMode);
             });
     },
 
-    determineFirstAvailableMode: function() {
-        var availableOptions = [];
-        for (var i = 0; i < this.options.length; i++) {
-            var option = this.options[i];
+    determineFirstAvailableMode: function () {
+        let availableOptions = [];
+        for (let i = 0; i < this.options.length; i++) {
+            let option = this.options[i];
             if (!option.classList.contains('disabled-mode')) {
                 availableOptions.push(option);
             }
@@ -126,12 +125,12 @@ var ModeToggle = {
             availableOptions[0].getAttribute('data-mode') : 'autonomous';
     },
 
-    updateSlider: function(mode) {
+    updateSlider: function (mode) {
         if (!this.slider) return;
 
         this.slider.className = 'mode-slider ' + mode;
-        for (var i = 0; i < this.options.length; i++) {
-            var option = this.options[i];
+        for (let i = 0; i < this.options.length; i++) {
+            let option = this.options[i];
             if (option.getAttribute('data-mode') === mode) {
                 option.classList.add('active');
             } else {
@@ -140,17 +139,17 @@ var ModeToggle = {
         }
     },
 
-    setCookie: function(name, value, days) {
-        var expires = new Date();
+    setCookie: function (name, value, days) {
+        let expires = new Date();
         expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
         document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
     },
 
-    getCookie: function(name) {
-        var nameEQ = name + '=';
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
+    getCookie: function (name) {
+        let nameEQ = name + '=';
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
             while (c.charAt(0) === ' ') c = c.substring(1, c.length);
             if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
         }
@@ -159,7 +158,7 @@ var ModeToggle = {
 };
 
 // Initialisation
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     ModeToggle.initialize();
 });
 

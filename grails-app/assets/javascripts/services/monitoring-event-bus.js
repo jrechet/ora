@@ -1,6 +1,4 @@
-// monitoring-event-bus.js
-
-const MonitoringEventBus = {
+let MonitoringEventBus = {
     events: new Map(),
 
     // Création d'un événement personnalisé
@@ -37,7 +35,7 @@ const MonitoringEventBus = {
     // Désabonnement de tous les événements d'un type
     clearEventListeners: function(eventName) {
         if (this.events.has(eventName)) {
-            this.events.get(eventName).forEach(callback => {
+            this.events.get(eventName).forEach(function(callback) {
                 document.removeEventListener(eventName, callback);
             });
             this.events.delete(eventName);
