@@ -119,35 +119,5 @@
         <g:render template="/monitoring/summary" model="[summary: summary]"/>
     </div>
 </footer>
-
-<script>
-    // Navbar burger menu
-    document.addEventListener('DOMContentLoaded', function () {
-        // Navbar burger menu
-        var navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-        navbarBurgers.forEach(function (el) {
-            el.addEventListener('click', function () {
-                var target = el.dataset.target;
-                var $target = document.getElementById(target);
-
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
-            });
-        });
-
-        // Notification close button
-        var deleteButtons = document.querySelectorAll('.notification .delete') || [];
-        deleteButtons.forEach(function ($delete) {
-            var $notification = $delete.parentNode;
-            $delete.addEventListener('click', function () {
-                $notification.parentNode.removeChild($notification);
-            });
-        });
-
-        // Initialiser le ModeToggle
-        // ModeToggle.initialize();
-    });
-</script>
 </body>
 </html>

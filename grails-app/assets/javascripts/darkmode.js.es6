@@ -1,5 +1,4 @@
-// grails-app/assets/javascripts/darkMode.js
-
+//= wrapped
 document.addEventListener('DOMContentLoaded', () => {
     const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
     const currentTheme = localStorage.getItem('theme');

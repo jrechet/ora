@@ -1,5 +1,4 @@
-// http-proxy.js
-var HttpProxyWebSocket = {
+const HttpProxyWebSocket = {
     socket: null,
     reconnectAttempts: 0,
     maxReconnectAttempts: 5,
@@ -17,7 +16,7 @@ var HttpProxyWebSocket = {
 
     connect: function() {
         try {
-            var wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             this.socket = new WebSocket(wsProtocol + '//' + window.location.host + '/monitoring-ws');
 
             // Bind des méthodes avec le bon contexte
@@ -50,7 +49,7 @@ var HttpProxyWebSocket = {
     },
 
     handleConnectionError: function() {
-        var self = this;
+        let self = this;
         if (this.reconnectAttempts < this.maxReconnectAttempts) {
             this.reconnectAttempts++;
             setTimeout(function() {
@@ -63,7 +62,7 @@ var HttpProxyWebSocket = {
 
     onMessage: function(event) {
         try {
-            var message;
+            let message;
             try {
                 message = JSON.parse(event.data);
             } catch (e) {
@@ -84,7 +83,36 @@ var HttpProxyWebSocket = {
 
     validateMessage: function(message) {
         if (!message || typeof message !== 'object' || !message.type) {
-            console.log('Received invalid message format:', message);
+            console.warn('Invalid message format:', message);
+            return false;
+        }
+
+        switch (message.type) {
+            case 'HTTP_REQUEST':
+                return this.validateHttpRequest(message);
+            case 'PING':
+                return this.validatePing(message);
+            default:
+                console.warn('Unknown message type:', message.type);
+                return false;
+        }
+    },
+
+    validateHttpRequest: function(message) {
+        if (!message.url) {
+            console.warn('HTTP_REQUEST missing url:', message);
+            return false;
+        }
+        if (!message.requestId) {
+            console.warn('HTTP_REQUEST missing requestId:', message);
+            return false;
+        }
+        return true;
+    },
+
+    validatePing: function(message) {
+        if (!message.timestamp) {
+            console.warn('PING missing timestamp:', message);
             return false;
         }
         return true;
@@ -115,8 +143,8 @@ var HttpProxyWebSocket = {
     },
 
     handleHttpRequest: function(message) {
-        var self = this;
-        var options = this.buildRequestOptions(message.headers);
+        const self = this;
+        const options = this.buildRequestOptions(message.headers);
 
         fetch(message.url, options)
             .then(function(response) {
@@ -136,19 +164,20 @@ var HttpProxyWebSocket = {
     },
 
     buildRequestOptions: function(headers) {
-        var options = {
-            method: 'GET'
+        if (!headers) {
+            return { method: 'GET' };
+        }
+
+        const options = {
+            method: 'GET',
+            headers: {}
         };
 
-        if (headers) {
-            options.headers = {};
-            var headerPairs = headers.split('\n');
-
-            for (var i = 0; i < headerPairs.length; i++) {
-                var parts = headerPairs[i].split(':');
-                if (parts.length === 2) {
-                    options.headers[parts[0].trim()] = parts[1].trim();
-                }
+        const headerPairs = headers.split('\n');
+        for (let i = 0; i < headerPairs.length; i++) {
+            const parts = headerPairs[i].split(':');
+            if (parts.length === 2) {
+                options.headers[parts[0].trim()] = parts[1].trim();
             }
         }
 
@@ -157,7 +186,7 @@ var HttpProxyWebSocket = {
 
     sendHttpResponse: function(requestId, status, data, error) {
         if (this.canSendMessage()) {
-            var response = {
+            const response = {
                 type: 'HTTP_RESPONSE',
                 requestId: requestId,
                 status: status
@@ -188,3 +217,5 @@ var HttpProxyWebSocket = {
 document.addEventListener('DOMContentLoaded', function() {
     HttpProxyWebSocket.initialize();
 });
+
+window.HttpProxyWebSocket = HttpProxyWebSocket;

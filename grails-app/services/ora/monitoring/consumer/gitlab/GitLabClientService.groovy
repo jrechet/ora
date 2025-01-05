@@ -83,10 +83,7 @@ class GitLabClientService implements GrailsConfigurationAware {
 
             if (!targetPipeline || !testJobs) {
                 log.warn("Aucun pipeline avec jobs de test terminés trouvé pour le projet ${projectId}")
-                return new GitLabTestsStatus(
-                        jobs: [],
-                        pipelineUrl: "${gitlabRepositoryUrl}/-/pipelines"
-                )
+                return createFailedStatus("Aucun pipeline avec jobs de test terminés trouvé", gitlabRepositoryUrl)
             }
 
             log.debug("Jobs trouvés: ${testJobs.collect { "${it.stage}/${it.name}" }}")
@@ -126,10 +123,10 @@ class GitLabClientService implements GrailsConfigurationAware {
         }
     }
 
-    private static GitLabTestsStatus createFailedStatus(String message = null) {
+    private static GitLabTestsStatus createFailedStatus(String message = null, String pipelineUrl = null) {
         return new GitLabTestsStatus(
                 jobs: [],
-                pipelineUrl: null,
+                pipelineUrl: "${pipelineUrl}/-/pipelines",
                 error: message
         )
     }
