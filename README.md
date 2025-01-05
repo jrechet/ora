@@ -165,6 +165,7 @@ Pour tester ORA sur un environnement simuler, vous pouvez utiliser le fichier `d
 projet. Il suffit de lancer la commande suivante :
 
 ```bash
+./gradlew assemble
 docker-compose up
 ```
 
@@ -173,6 +174,7 @@ docker-compose up
 ou
 
 ```bash
+./gradlew assemble
 docker-compose up --build 
 ```
 ## Récupérer la dernière version d'ora depuis github pour l'intégrer dans votre cicd
