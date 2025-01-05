@@ -30,38 +30,38 @@ envs.yml contient la liste des environnements et leurs propriétés :
 ```yaml
 # envs.yml
 environments:
-   development: # environment au sens grails
-      applications:
-         monitoring:
-            envs:
-               dev:
-                  params:
-                     level: 1
-                  tenants:
-                     tenant-a:
-                     tenant-b:
-               prod:
-                  params:
-                     level: 99
-                  tenants:
-                     tenant-a:
-                     tenant-b:
-   production: # environment au sens grails
-      applications:
-         monitoring:
-            envs:
-               dev:
-                  params:
-                     level: 1
-                  tenants:
-                     tenant-a:
-                     tenant-b:
-               prod:
-                  params:
-                     level: 99
-                  tenants:
-                     tenant-a:
-                     tenant-b:
+  development: # environment au sens grails
+    applications:
+      monitoring:
+        envs:
+          dev:
+            params:
+              level: 1
+            tenants:
+              tenant-a:
+              tenant-b:
+          prod:
+            params:
+              level: 99
+            tenants:
+              tenant-a:
+              tenant-b:
+  production: # environment au sens grails
+    applications:
+      monitoring:
+        envs:
+          dev:
+            params:
+              level: 1
+            tenants:
+              tenant-a:
+              tenant-b:
+          prod:
+            params:
+              level: 99
+            tenants:
+              tenant-a:
+              tenant-b:
 
 ```
 
@@ -110,10 +110,13 @@ toutes les applications.
 
 #### Execution
 
+Une fois vos fichiers de configuration prêts, vous pouvez exécuter ORA en utilisant les commandes suivantes :
+
 ```bash
 ./gradlew bootRun -Dgrails.env=prod -Dserver.port=8080 -Dora.config.path=./grails-app/conf/ora -Dgitlab.token=xxxxx
 ```
 
+Ici on considère que les fichiers de configuration sont dans le répertoire `./grails-app/conf/ora`.
 Pensez à remplacer `xxxxx` par votre token Gitlab.
 
 ### Docker
