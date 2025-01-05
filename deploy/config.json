@@ -1,0 +1,59 @@
+{
+  "Team": {
+    "Name": "prevoyance-individuelle",
+    "Contact": "dir-prev-informatique@cbp-group.com",
+    "Service": "direction-prevoyance"
+  },
+  "Platform": "aws",
+  "Region": "eu-west-3",
+  "Sms": false,
+  "Mail": false,
+  "Application": {
+    "Name": "ora",
+    "Version": "${project.version}",
+    "DockerImageURL": "${UDD_BUILD_REGISTRY}/${project.name}:${project.version}",
+    "Memory": "256Mi",
+    "Cpu": "100m",
+    "PortExposed": "8080",
+    "HealthcheckURI": "/private/open/healthCheck",
+    "Public": false,
+    "Desired": 1,
+    "Max": 1,
+    "InitialProbeDelay": 60,
+    "InitialHealthCheckDelay": 300,
+    "EnvironmentVariables": {
+      "env": "${params.env}",
+      "JAVA_OPTS": "-Xms256M -Xmx256M -Duser.timezone=Europe/Paris -Duser.language=fr -Duser.country=FR -Dfile.encoding=UTF-8",
+      "sqlValidateRequest": "select 1"
+    },
+    "Observability": {
+      "Metrics": {
+        "Path": "/actuator/prometheus"
+      }
+    }
+  },
+  "Aws": {
+    "Secrets": [
+      {
+        "Name": "cbp/apps/${params.env}/ora/secrets",
+        "Key": "gitlabToken",
+        "Env": "gitlabToken"
+      }
+    ]
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

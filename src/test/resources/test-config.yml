@@ -1,0 +1,58 @@
+applications:
+  monitoring:
+    envs:
+      dev:
+        params:
+          level: 4
+        tenants:
+          tenant-a:
+          tenant-b:
+      integration:
+        params:
+          level: 3
+        tenants:
+          tenant-a:
+          tenant-b:
+    apps:
+      App1:
+        global:
+          repositoryUrl: "https://ci"
+        instances:
+          dev:
+            tenant-a:
+              healthUrl: "https://app1-dev-a.example.com/health"
+              logsUrl: "https://logs"
+            tenant-b:
+              healthUrl: "https://app1-dev-b.example.com/health"
+              logsUrl: "https://logs-b"
+          integration:
+            tenant-a:
+              healthUrl: "https://app1-int-a.example.com/health"
+              logsUrl: "https://logs"
+            tenant-b:
+              healthUrl: "https://app1-int-b.example.com/health"
+              logsUrl: "https://logs-b"
+          prod:
+            tenant-a:
+              healthUrl: "https://app1-prod-a.example.com/health"
+              logsUrl: "https://logs"
+            tenant-b:
+              healthUrl: "https://app1-prod-b.example.com/health"
+              logsUrl: "https://logs-b"
+      App2:
+        global:
+          repositoryUrl: "https://ci"
+          logs: "https://logs"
+        instances:
+          dev:
+            tenant-a:
+              healthUrl: "https://app2-dev-a.example.com/health"
+              logsUrl: "https://logs"
+          integration:
+            tenant-a:
+              healthUrl: "https://app2-dev-a.example.com/health"
+              logsUrl: "https://logs"
+          prod:
+            tenant-a:
+              healthUrl: "https://app2-dev-a.example.com/health"
+              logsUrl: "https://logs"

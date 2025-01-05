@@ -1,0 +1,157 @@
+plugins {
+    id "groovy"
+    id "org.grails.grails-gsp"
+    id "org.grails.grails-web"
+    id "com.github.erdi.webdriver-binaries"
+    id "org.springframework.boot" // Ajout du plugin Spring Boot
+    id "war"
+    id "idea"
+    id "com.bertramlabs.asset-pipeline"
+    id "application"
+    id "eclipse"
+}
+
+group = "ora"
+
+repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+    mavenCentral()
+}
+
+configurations {
+    all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.seleniumhq.selenium') {
+                details.useVersion('4.19.1')
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation("org.grails:grails-core")
+    implementation("org.grails:grails-logging")
+    implementation("org.grails:grails-plugin-databinding")
+    implementation("org.grails:grails-plugin-i18n")
+    implementation("org.grails:grails-plugin-interceptors")
+    implementation("org.grails:grails-plugin-rest")
+    implementation("org.grails:grails-plugin-services")
+    implementation("org.grails:grails-plugin-url-mappings")
+    implementation("org.grails:grails-web-boot")
+    implementation("org.grails.plugins:gsp")
+    implementation("org.grails.plugins:hibernate5")
+    implementation("org.grails.plugins:scaffolding")
+    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-tomcat")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation "io.micronaut:micronaut-http-client"
+    implementation "net.logstash.logback:logstash-logback-encoder:5.2"
+    compileOnly("io.micronaut:micronaut-inject-groovy")
+    console("org.grails:grails-console")
+    runtimeOnly("com.bertramlabs.plugins:asset-pipeline-grails:4.3.0")
+    runtimeOnly("org.apache.tomcat:tomcat-jdbc")
+    runtimeOnly("com.h2database:h2")
+    runtimeOnly 'org.postgresql:postgresql:42.7.2'
+    runtimeOnly 'org.fusesource.jansi:jansi:2.4.0'
+    testImplementation("io.micronaut:micronaut-inject-groovy")
+    testImplementation("org.grails:grails-gorm-testing-support")
+    testImplementation("org.grails:grails-web-testing-support")
+    testImplementation("org.spockframework:spock-core")
+    testImplementation("io.micronaut:micronaut-http-client")
+
+    // WebSocket dependencies
+    implementation 'org.springframework:spring-websocket'
+    implementation 'org.springframework:spring-messaging'
+
+    // Test dependencies
+    testImplementation 'javax.websocket:javax.websocket-api:1.1'
+    testImplementation group: 'org.glassfish.tyrus', name: 'tyrus-container-grizzly-server', version: '1.17'
+    testImplementation group: 'org.glassfish.tyrus', name: 'tyrus-container-grizzly-client', version: '1.17'
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+tasks.assemble.dependsOn tasks.bootJar
+bootJar {
+    enabled = true
+    manifest {
+        attributes(
+                'Main-Class': 'org.springframework.boot.loader.JarLauncher',
+                'Start-Class': 'ora.Application'
+        )
+    }
+}
+
+jar {
+    enabled = false
+    manifest {
+        attributes(
+                'Main-Class': 'org.springframework.boot.loader.JarLauncher',
+                'Start-Class': 'ora.Application'
+        )
+    }
+}
+
+application {
+    mainClass.set("ora.Application")
+}
+
+// pas de war
+bootWar {
+    enabled = false
+    archiveClassifier = null
+}
+
+war {
+    enabled = false
+}
+
+
+tasks.withType(GroovyCompile).configureEach {
+    options.fork = true
+    options.incremental = true
+    options.forkOptions.jvmArgs += ['-Dgroovy.antlr4.cache.threshold=0', '-Xmx2g', '-Dgroovy.parallel.parse=true']
+}
+
+// Add new Gradle task for Docker PostgreSQL
+task startDevDb(type: Exec) {
+    commandLine 'docker', 'run', '--name', 'ora-postgres-dev',
+            '-e', 'POSTGRES_DB=ora_dev',
+            '-e', 'POSTGRES_USER=ora_user',
+            '-e', 'POSTGRES_PASSWORD=ora_pass',
+            '-p', '5432:5432',
+            '', 'postgres:15-alpine'
+}
+
+task stopDevDb(type: Exec) {
+    commandLine 'docker', 'stop', 'ora-postgres-dev'
+    ignoreExitValue true
+}
+
+task removeDevDb(type: Exec) {
+    commandLine 'docker', 'rm', 'ora-postgres-dev'
+    ignoreExitValue true
+}
+
+task resetDevDb {
+    dependsOn stopDevDb, removeDevDb, startDevDb
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperty "geb.env", System.getProperty('geb.env')
+    systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+    systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
+    systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
+}
+assets {
+    minifyJs = true
+    minifyCss = true
+    includes = ["fonts/*", "webfonts/*"]
+}

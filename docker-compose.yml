@@ -1,0 +1,274 @@
+# Lance un service ORA et les applications de test pour dev et prod, tenants a et b
+
+networks:
+  monitoring-network:
+    driver: bridge
+
+services:
+  # Service ORA
+  ora:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      no_cache: true
+      args:
+        BUILDKIT_INLINE_CACHE: 0
+    image: ora:local
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./simulator/config/docker-compose:/app/config/ora
+    environment:
+      - ORA_CONFIG_PATH=/app/config/ora
+      - GITLAB_TOKEN=${GITLAB_TOKEN}
+    networks:
+      - monitoring-network
+    depends_on:
+      - app1-dev-a
+      - app1-dev-b
+      - app1-prod-a
+      - app1-prod-b
+      - app2-dev-a
+      - app2-dev-b
+      - app2-prod-a
+      - app2-prod-b
+      - app3-dev-a
+      - app3-dev-b
+      - app3-prod-a
+      - app3-prod-b
+      - app4-dev-a
+      - app4-dev-b
+      - app4-prod-a
+      - app4-prod-b
+      - app5-dev-a
+      - app5-dev-b
+      - app5-prod-a
+      - app5-prod-b
+
+  # Applications de test pour dev tenant-a
+  app1-dev-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3001:3000"
+    networks:
+      - monitoring-network
+
+  app2-dev-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3002:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app3-dev-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3003:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app4-dev-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3004:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  app5-dev-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3005:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  # Applications de test pour dev tenant-b
+  app1-dev-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3011:3000"
+    networks:
+      - monitoring-network
+
+  app2-dev-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3012:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app3-dev-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3013:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app4-dev-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3014:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  app5-dev-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3015:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  # Applications de test pour prod tenant-a
+  app1-prod-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3021:3000"
+    networks:
+      - monitoring-network
+
+  app2-prod-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3022:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app3-prod-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3023:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app4-prod-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3024:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  app5-prod-a:
+    build:
+      context: ./simulator
+    ports:
+      - "3025:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  # Applications de test pour prod tenant-b
+  app1-prod-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3031:3000"
+    networks:
+      - monitoring-network
+
+  app2-prod-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3032:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app3-prod-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3033:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=200
+    networks:
+      - monitoring-network
+
+  app4-prod-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3034:3000"
+    environment:
+      - HEALTH_STATUS=200
+      - MONITORING_STATUS=200
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network
+
+  app5-prod-b:
+    build:
+      context: ./simulator
+    ports:
+      - "3035:3000"
+    environment:
+      - HEALTH_STATUS=500
+      - MONITORING_STATUS=500
+      - SUPERVISION_STATUS=500
+    networks:
+      - monitoring-network

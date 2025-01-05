@@ -1,0 +1,77 @@
+environments:
+  production: # environment au sens grails
+    applications:
+      monitoring:
+        apps:
+          test-app1:
+            global:
+              repositoryUrl: "http://app1:3000"
+              healthUrl: "/healthcheck"
+              supervisionUrl: "/supervision"
+            instances:
+              dev:
+                tenant-a:
+                  baseUrl: "http://app1-dev-a:3000"
+                tenant-b:
+                  baseUrl: "http://app1-dev-b:3000"
+              prod:
+                tenant-a:
+                  baseUrl: "http://app1-prod-a:3000"
+                tenant-b:
+                  baseUrl: "http://app1-prod-b:3000"
+
+          test-app2:
+            global:
+              repositoryUrl: "http://app2:3000"
+              healthUrl: "/healthcheck"
+              supervisionUrl: "/supervision"
+            instances:
+              dev:
+                tenant-a:
+                  baseUrl: "http://app2-dev-a:3000"
+                tenant-b:
+                  baseUrl: "http://app2-dev-b:3000"
+              prod:
+                tenant-a:
+                  baseUrl: "http://app2-prod-a:3000"
+                tenant-b:
+                  baseUrl: "http://app2-prod-b:3000"
+
+          test-app3:
+            global:
+              repositoryUrl: "http://app3:3000"
+              healthUrl: "/healthcheck"
+              supervisionUrl: "/supervision"
+            instances:
+              dev:
+                tenant-b:
+                  baseUrl: "http://app3-dev-b:3000"
+              prod:
+                tenant-b:
+                  baseUrl: "http://app3-prod-b:3000"
+
+          test-app4:
+            global:
+              repositoryUrl: "http://app4:3000"
+              healthUrl: "/healthcheck"
+              supervisionUrl: "/supervision"
+            instances:
+              dev:
+                tenant-a:
+                  baseUrl: "http://app4-dev-a:3000"
+              prod:
+                tenant-a:
+                  baseUrl: "http://app4-prod-a:3000"
+
+          test-app5:
+            global:
+              repositoryUrl: "http://app5:3000"
+              healthUrl: "/healthcheck"
+              supervisionUrl: "/supervision"
+            instances:
+              dev:
+                tenant-a:
+                  baseUrl: "http://app5-dev-a:3000"
+              prod:
+                tenant-a:
+                  baseUrl: "http://app5-prod-a:3000"

@@ -1,0 +1,8 @@
+{
+  "project": {
+    "name": "ora",
+    "group": "ora",
+    "packaging": "jar",
+    "binary": "build/libs/*.jar"
+  }
+}

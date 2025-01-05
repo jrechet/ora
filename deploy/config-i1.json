@@ -1,0 +1,11 @@
+{
+  "Account": "dev",
+  "Environment": "${params.env}",
+  "Application": {
+    "ServiceLevel": "NONE",
+    "Uptime": "Mon-Fri 04:00-22:00 Europe/Paris",
+    "EnvironmentVariables": {
+      "env": "i1"
+    }
+  }
+}

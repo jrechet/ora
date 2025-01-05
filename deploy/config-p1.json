@@ -1,0 +1,11 @@
+{
+  "Account": "prod",
+  "Environment": "${params.env}",
+  "Application": {
+    "Desired": 0,
+    "ServiceLevel": "GOLD",
+    "EnvironmentVariables": {
+      "env": "p1"
+    }
+  }
+}

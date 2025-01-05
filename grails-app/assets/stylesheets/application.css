@@ -1,0 +1,303 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require bootstrap
+*= require vendor/bulma.min
+*= require vendor/fontawesome/css/all.min
+*= require grails
+*= require main
+*= require mobile
+*= require darkmode
+*= require toggle
+*= require_self
+*/
+/* Ajoutez ceci à votre grails-app/assets/stylesheets/application.css */
+
+/* Pour le footer */
+.footer {
+    padding: 2rem 1.5rem;
+    background-color: #fafafa;
+}
+
+/* Pour les notifications */
+.notification {
+    margin-bottom: 1.5rem;
+}
+
+/* Transition pour le refresh button */
+#refreshAll .icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+#refreshAll:active .icon {
+    transform: rotate(360deg);
+}
+
+.is-rotating {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Amélioration des cartes d'application */
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content {
+    flex-grow: 1;
+}
+
+/* Animation de chargement pendant les vérifications */
+.app-card.is-loading .card-content {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.app-card.is-loading .card-content::after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 1.5em);
+    left: calc(50% - 1.5em);
+    width: 3em;
+    height: 3em;
+    border: 3px solid #dbdbdb;
+    border-radius: 50%;
+    border-top-color: #3273dc;
+    animation: spinAround 500ms infinite linear;
+}
+
+@keyframes spinAround {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.card-content a {
+    display: block;
+    text-decoration: none;
+}
+
+.card-content a:hover {
+    opacity: 0.8;
+}
+
+.card-content a:active {
+    opacity: 0.6;
+}
+
+.card-header {
+    border-radius: 4px 4px 0 0;
+}
+
+.card-header.env-prod {
+    background-color: #f0faf0;
+    border-bottom: 2px solid #48c774;
+}
+
+.card-header.env-integration {
+    background-color: #f0f7fa;
+    border-bottom: 2px solid #3298dc;
+}
+
+.card-header.env-dev {
+    background-color: #fff5f5;
+    border-bottom: 2px solid #f14668;
+}
+
+.card-header-title {
+    font-weight: 600;
+}
+
+.tags {
+    justify-content: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.tags:last-child {
+    margin-bottom: 0.5rem;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card-footer {
+    border-top: 1px solid #f5f5f5;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.card {
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.card:hover {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand .logo {
+    color: #2ecc71; /* Vert naturel */
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px rgba(46, 255, 0, 0.8); /* Ombre verte légère */
+    font-family: 'Arial', sans-serif; /* ou une autre police plus distinctive si vous préférez */
+    padding: 0.5rem 0;
+}
+
+.navbar-brand .logo:hover {
+    color: #27ae60; /* Vert légèrement plus foncé au survol */
+    text-shadow: 2px 2px 6px rgba(46, 204, 113, 0.3); /* Ombre un peu plus prononcée au survol */
+}
+
+.table tr td {
+    vertical-align: middle;
+}
+
+.buttons.is-right {
+    justify-content: flex-end;
+    margin-bottom: 0;
+}
+
+.buttons.is-right .button {
+    margin-bottom: 0;
+}
+
+.monitoring-table {
+    border-collapse: collapse;
+}
+
+.monitoring-table td {
+    border: none;
+}
+
+.monitoring-table tr {
+    border-bottom: 1px solid #f0f0f0;
+    border-top: none;
+}
+
+.monitoring-table tbody tr td {
+    border-top: none;
+}
+
+.monitoring-table .status-column {
+    width: 80px;
+    padding-right: 1rem;
+}
+
+.monitoring-table .icon-column {
+    width: 40px;
+    padding-right: 1rem;
+}
+
+.monitoring-table .icon-column:last-child {
+    padding-right: 0;
+}
+
+@media screen and (min-width: 1024px) {
+    .section {
+        padding: 1rem .5rem;
+    }
+
+    .navbar {
+        min-height: 5rem;
+    }
+
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.section {
+    flex: 1;
+    padding-bottom: 4rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid #eeeeee;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    min-width: min-content;
+    max-width: 90%;
+    padding: 0.75rem 2rem;
+    border-left: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.footer .container {
+    max-width: 1200px;
+}
+
+/* Augmente le z-index lors du hover */
+.has-tooltip:hover {
+    z-index: 9999; /* Passe au-dessus des autres éléments */
+}
+
+[data-tooltip]:not([data-tooltip=""]) {
+    position: relative;
+    cursor: pointer;
+}
+
+[data-tooltip]:not([data-tooltip=""]):before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    white-space: pre-wrap;
+    text-align: left;
+    display: none;
+    z-index: 1;
+}
+
+[data-tooltip]:not([data-tooltip=""]):hover:before {
+    display: block;
+}
+
+[data-tooltip]::before {
+    white-space: pre;
+    word-wrap: normal;
+    word-break: keep-all;
+}
+
+.tabs ul {
+    border: none;
+}

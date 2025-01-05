@@ -1,0 +1,184 @@
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true"
+  GRADLE_USER_HOME: ".gradle"
+
+image: eclipse-temurin:11-jdk
+
+stages:
+  - build
+  - test
+  - package
+  - docker
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+    - build
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - export JAVA_HOME=/home/debian/.sdkman/candidates/java/11.0.23-tem
+  - chmod +x ./gradlew
+
+compile:
+  tags:
+    - jre-server
+  stage: build
+  script:
+    - ./gradlew assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+
+test:
+  tags:
+    - jre-server
+  stage: test
+  script:
+    - ./gradlew check
+
+test_docker_launch:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    # Désactiver TLS pour Docker-in-Docker en dev/test
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://docker:2375
+    GITLAB_TOKEN: ${CI_JOB_TOKEN}
+    # Image à tester
+    ORA_IMAGE: ${CI_REGISTRY_IMAGE}:latest
+  before_script:
+    # Création du répertoire pour les configurations de test
+    - mkdir -p ./test-configs/apps
+    - mkdir -p ./test-configs/tmp
+    # Création des fichiers de configuration minimaux pour le test
+    - |
+      cat > ./test-configs/envs.yml << EOF
+      environments:
+        - name: test
+          level: 1
+      EOF
+    - |
+      cat > ./test-configs/apps/test-app.yml << EOF
+      applications:
+        - name: test-app
+          healthUrl: http://localhost:8080/actuator/health
+      EOF
+  script:
+    # Login au registry GitLab
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+    # Pull de l'image latest
+    - docker pull ${ORA_IMAGE}
+
+    # Lancement du conteneur avec les configs de test
+    - |
+      docker run -d \
+        --name ora-test \
+        -p 8080:8080 \
+        -v $(pwd)/test-configs:/app/config/ora \
+        ${ORA_IMAGE}
+
+    # Attente que l'application démarre (30 secondes max)
+    - |
+      TIMEOUT=30
+      echo "Waiting for ORA to start (timeout ${TIMEOUT}s)..."
+      while [ $TIMEOUT -gt 0 ]; do
+        if curl -s http://docker:8080/actuator/health | grep -q "UP"; then
+          echo "ORA started successfully"
+          docker logs ora-test
+          exit 0
+        fi
+        TIMEOUT=$((TIMEOUT-1))
+        sleep 1
+      done
+      echo "Error: ORA failed to start within timeout"
+      docker logs ora-test
+      exit 1
+  after_script:
+    # Nettoyage
+    - docker rm -f ora-test || true
+    - docker logout $CI_REGISTRY
+  rules:
+    # Exécuter ce job uniquement quand l'image latest a été mise à jour
+    - changes:
+        - Dockerfile
+      when: always
+    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'
+      when: always
+package:
+  tags:
+    - jre-server
+  stage: package
+  script:
+    - ./gradlew bootJar
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+  only:
+    - main
+    - develop
+    - /^release\/.*$/
+
+docker build:
+  tags:
+    - jre-server
+  stage: docker
+  variables:
+    GITLAB_TOKEN: ${CI_JOB_TOKEN}
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "main" ]]; then
+        VERSION=$(cat gradle.properties | grep "version" | cut -d'=' -f2)
+        DOCKER_TAG=$VERSION
+      else
+        DOCKER_TAG=$CI_COMMIT_SHA
+      fi
+    - echo "Building docker image with tag $DOCKER_TAG"
+    - docker build --pull --cache-from $CI_REGISTRY_IMAGE:latest
+      --tag $CI_REGISTRY_IMAGE:$DOCKER_TAG
+      --tag $CI_REGISTRY_IMAGE:latest .
+      --tag jrec/ora:latest .
+    - docker push $CI_REGISTRY_IMAGE:$DOCKER_TAG
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - main
+    - develop
+    - /^release\/.*$/
+
+
+push to dockerhub:
+  tags:
+    - jre-server
+  stage: docker
+  variables:
+    GITLAB_TOKEN: ${CI_JOB_TOKEN}
+    DOCKERHUB_USERNAME: jrec
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "main" ]]; then
+        VERSION=$(cat gradle.properties | grep "version" | cut -d'=' -f2)
+        DOCKER_TAG=$VERSION
+      else
+        DOCKER_TAG=$CI_COMMIT_SHA
+      fi
+    - echo "Pushing docker image to Docker Hub with tag $DOCKER_TAG"
+    - docker pull $CI_REGISTRY_IMAGE:$DOCKER_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$DOCKER_TAG $DOCKERHUB_USERNAME/ora:$DOCKER_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$DOCKER_TAG $DOCKERHUB_USERNAME/ora:latest
+    - docker push $DOCKERHUB_USERNAME/ora:$DOCKER_TAG
+    - docker push $DOCKERHUB_USERNAME/ora:latest
+  only:
+    - main
+    - develop
+    - /^release\/.*$/
+  when: manual

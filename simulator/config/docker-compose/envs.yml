@@ -1,0 +1,33 @@
+environments:
+  development: # environment au sens grails
+    applications:
+      monitoring:
+        envs:
+          dev:
+            params:
+              level: 1
+            tenants:
+              tenant-a:
+              tenant-b:
+          prod:
+            params:
+              level: 99
+            tenants:
+              tenant-a:
+              tenant-b:
+  production: # environment au sens grails
+    applications:
+      monitoring:
+        envs:
+          dev:
+            params:
+              level: 1
+            tenants:
+              tenant-a:
+              tenant-b:
+          prod:
+            params:
+              level: 99
+            tenants:
+              tenant-a:
+              tenant-b:

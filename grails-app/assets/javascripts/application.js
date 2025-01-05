@@ -1,0 +1,18 @@
+// This is a manifest file that'll be compiled into application.js.
+//
+// Any JavaScript file within this directory can be referenced here using a relative path.
+//
+// You're free to add application-wide JavaScript to this file, but it's generally better
+// to create separate JavaScript files as needed.
+//
+//= require jquery-3.5.1.min
+//= require popper.min
+//= require bootstrap
+//= require darkmode
+//= require monitoring-event-bus
+//= require monitoring-state
+//= require http-proxy-websocket
+//= require toggle
+//= require refresh
+//= require_self
+// grails-app/assets/javascripts/application.js

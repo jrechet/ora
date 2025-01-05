@@ -1,0 +1,15 @@
+#!/bin/sh
+
+
+key=version
+file=gradle.properties
+
+# Mettre à jour la version
+if [ ! -z $1 ]; then
+    mv $file $file.bkp
+    sed -e "s/^$key=[^ ]*/$key=$1/g" $file.bkp > $file
+fi
+
+# Afficher la version
+#On ^ pour ne pas attraper les autres version dans le fichier
+grep "^$key=" $file | sed -e "s/$key=//"

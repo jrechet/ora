@@ -1,0 +1,78 @@
+.mode-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 8px;
+    border-color: darkslategrey;
+    border-style: solid;
+    border-width: .1px;
+    background: none;
+    padding: 0;
+    gap: 4px;
+}
+
+.mode-option {
+    position: relative;
+    z-index: 1;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #666;
+    transition: color 0.3s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.mode-option:hover {
+    color: #333;
+}
+
+.mode-option.active {
+    color: #fff;
+}
+
+.mode-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    z-index: 0;
+}
+
+/* Couleurs spécifiques pour chaque mode */
+.mode-slider.websocket {
+    background-color: #00d1b2;  /* vert-bleu */
+    width: calc(33.33% - 4px);
+    transform: translateX(0);
+}
+
+.mode-slider.server {
+    background-color: #3298dc;  /* bleu */
+    width: calc(33.33% - 4px);
+    transform: translateX(100%);
+}
+
+.mode-slider.autonomous {
+    background-color: #ff7e67;  /* orange-rouge */
+    width: calc(33.33% - 4px);
+    transform: translateX(200%);
+}
+
+/* Icônes d'état */
+.mode-status {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5rem;
+}
+
+.mode-status .icon {
+    margin-right: 0.25rem;
+}
+
+.disabled-mode {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
