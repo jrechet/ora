@@ -1,11 +1,13 @@
-# Guide d'utilisation Docker pour ORA
+# Guide d'utilisation pour ORA
 
 ## Introduction
 
-ORA est distribué sous forme d'image Docker pour faciliter son déploiement. Cette documentation explique comment
-utiliser l'image Docker et configurer ORA avec vos propres fichiers de configuration YAML.
+ORA est un outil de supervision des applications. Il permet de visualiser l'état de santé des applications du SI ainsi que les problèmes de cicd.
+Il sert aussi de point d'entrée pour accéder aux applications. C'est une sorte de marque-page dynamique.
 
-Voici un aperçu de l'interface d'ORA en mode standard :
+Tout le paramétrage est fait via des fichiers de configuration YAML.
+
+Aperçu de l'interface d'ORA en mode standard :
 
 ![Vue principale d'ORA](https://raw.githubusercontent.com/jrechet/ora/main/docs/images/ora-main-view.png)
 
@@ -14,6 +16,8 @@ Et en mode hotspot pour visualiser les problèmes :
 ![Vue hotspot d'ORA](https://raw.githubusercontent.com/jrechet/ora/main/docs/images/ora-hotspot-view.png)
 
 ### Modes de fonctionnement
+
+Afin de répondre à des contraintes de sécurité ou de performance, ORA peut fonctionner de différentes manières.
 
 #### Mode backend
 
@@ -136,7 +140,7 @@ toutes les applications.
 
 #### Execution
 
-Une fois vos fichiers de configuration prêts, vous pouvez exécuter ORA en utilisant les commandes suivantes :
+Une fois vos fichiers de configuration prêts, vous pouvez exécuter ORA en utilisant la commande suivante :
 
 ```bash
 ./gradlew bootRun -Dgrails.env=prod -Dserver.port=8080 -Dora.config.path=./grails-app/conf/ora -Dgitlab.token=xxxxx
@@ -150,8 +154,7 @@ Pensez à remplacer `xxxxx` par votre token Gitlab.
 ### Avec vos fichiers de configuration
 
 Si vous avez déjà un ora custom en local, avec votre conf dans `grails-app/conf/ora`, vous pouvez tester la dernière
-version
-d'ORA en vous mettant à la racine de ce projet et en lançant la commande suivante :
+version d'ORA en vous mettant à la racine de ce projet et en lançant la commande suivante :
 
 ```bash
 docker run --name ora -p 8080:8080 -e CONFIG_PATH=./grails-app/conf/ora -e GITLAB_TOKEN=xxxxx -t jrec/ora:latest
@@ -179,7 +182,7 @@ ora/
 
 ### Avec un environnement de test
 
-Pour tester ORA sur un environnement simuler, vous pouvez utiliser le fichier `docker-compose.yml` fourni dans ce
+Pour tester ORA sur un environnement simulé, vous pouvez utiliser le fichier `docker-compose.yml` fourni dans ce
 projet. Il suffit de lancer la commande suivante :
 
 ```bash
