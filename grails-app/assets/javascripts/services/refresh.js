@@ -15,7 +15,6 @@ const RefreshManager = {
 
         this.setupEventListeners();
         this.setupPeriodicChecks();
-        this.setupInitialRefresh();
         this.setupTabsHandling();
     },
 
@@ -57,6 +56,26 @@ const RefreshManager = {
                 this.refreshEnvironment(envId);
             }.bind(this), MonitoringConfig.REFRESH_INTERVAL);
         }.bind(this));
+    },
+
+    setupTabsHandling: function () {
+        const tabs = document.querySelectorAll('.tabs li');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                tabs.forEach(function (t) {
+                    t.classList.remove('is-active');
+                });
+                tabContents.forEach(function (c) {
+                    c.classList.remove('is-active');
+                });
+
+                tab.classList.add('is-active');
+                const target = tab.querySelector('a').getAttribute('href');
+                document.querySelector(target)?.classList.add('is-active');
+            });
+        });
     },
 
     refreshEnvironment: function (envId) {
@@ -534,37 +553,6 @@ const RefreshManager = {
             .finally(function () {
                 clearTimeout(timeoutId);
             });
-    },
-
-    setupInitialRefresh: function () {
-        let self = this;
-        const cards = document.querySelectorAll('.card:not(#tab-hotspot .card)');
-        cards.forEach(function (card) {
-            const envId = card.dataset.envId;
-            if (!envId) return;
-
-            self.refreshEnvironment(envId);
-        });
-    },
-
-    setupTabsHandling: function () {
-        const tabs = document.querySelectorAll('.tabs li');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(function (tab) {
-            tab.addEventListener('click', function () {
-                tabs.forEach(function (t) {
-                    t.classList.remove('is-active');
-                });
-                tabContents.forEach(function (c) {
-                    c.classList.remove('is-active');
-                });
-
-                tab.classList.add('is-active');
-                const target = tab.querySelector('a').getAttribute('href');
-                document.querySelector(target)?.classList.add('is-active');
-            });
-        });
     },
 
     updateUIAfterRefresh: function (applicationsStatus, envId, card) {

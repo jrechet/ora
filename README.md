@@ -7,6 +7,9 @@ Il sert aussi de point d'entrée pour accéder aux applications. C'est une sorte
 
 Tout le paramétrage est fait via des fichiers de configuration YAML.
 
+Image docker:
+https://hubgw.docker.com/r/jrec/ora/tags
+
 Aperçu de l'interface d'ORA en mode standard :
 
 ![Vue principale d'ORA](https://raw.githubusercontent.com/jrechet/ora/main/docs/images/ora-main-view.png)

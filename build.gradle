@@ -150,28 +150,9 @@ tasks.withType(Test) {
     systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
     systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
 }
-//
-//assets {
-//    minifyJs = true
-//    minifyCss = true
-//    includes = ["fonts/*", "webfonts/*"]
-//    maxThreads = 4
-//
-//    configOptions = [
-//            // Configuration pour le support ES6
-//            modules: true,
-//            sourceType: 'module'
-//    ]
-//
-//    minifyOptions = [
-//            languageMode: 'ECMASCRIPT_2020',
-//            targetLanguage: 'ECMASCRIPT_2020',
-//            optimizationLevel: 'SIMPLE'
-//    ]
-//}
 
 assets {
-    minifyJs = false
+    minifyJs = true
     minifyCss = true
     includes = ["fonts/*", "webfonts/*"]
     maxThreads = 4
