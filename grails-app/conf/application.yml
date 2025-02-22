@@ -108,6 +108,7 @@ grails:
             filters: 'none'
           - pattern: '/monitoring-ws/**'
             filters: 'none'
+            security: 'none'
           - pattern: '/**'
             filters: 'JOINED_FILTERS'
       controllerAnnotations:
@@ -130,6 +131,7 @@ grails:
             access: ['permitAll']
           - pattern: '/monitoring-ws/**'
             access: ['permitAll']
+            position: 1
           - pattern: '/'
             access: ['ROLE_USER']
           - pattern: '/monitoring/**'
