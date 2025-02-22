@@ -30,16 +30,17 @@
         </a>
     </div>
 
-    <div id="navMenu" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item" href="${createLink(controller: 'monitoring')}">
-                <span class="icon-text">
-                    <span>Healthcheck</span>
-                </span>
-            </a>
-        </div>
 
-        <div class="navbar-end">
+    <sec:ifLoggedIn>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="${createLink(controller: 'monitoring')}">
+                    <span class="icon-text">
+                        <span>Healthcheck</span>
+                    </span>
+                </a>
+            </div>
+
             <div class="navbar-item">
                 <div class="theme-switch-wrapper">
                     <label class="theme-switch" for="checkbox">
@@ -97,8 +98,18 @@
                     <span>Refresh All</span>
                 </button>
             </div>
+
+            <div class="navbar-item">
+                <button id="logoutButton" class="button is-light">
+                    <span class="icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </span>
+                    <span>Déconnexion</span>
+                </button>
+            </div>
         </div>
-    </div>
+    </sec:ifLoggedIn>
+
 </nav>
 
 <section class="section">
@@ -119,5 +130,28 @@
         <g:render template="/monitoring/summary" model="[summary: summary]"/>
     </div>
 </footer>
+
+<script>
+    $(document).ready(function () {
+        // Gestion de la déconnexion
+        $('#logoutButton').click(function () {
+            $.ajax({
+                url: '/api/logout',
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                },
+                success: function () {
+                    localStorage.removeItem('access_token');
+                    window.location.href = '${createLink(controller: 'auth', action: 'login')}';
+                },
+                error: function () {
+                    localStorage.removeItem('access_token');
+                    window.location.href = '${createLink(controller: 'auth', action: 'login')}';
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -13,6 +13,7 @@
 
 //= require darkmode
 //= require toggle
+//= require auth
 //= require_tree config
 //= require_tree services
 

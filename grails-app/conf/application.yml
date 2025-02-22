@@ -78,6 +78,80 @@ environments:
 #        dbProperties:
 #          autoReconnect: true
 ---
+grails:
+  plugin:
+    springsecurity:
+      active: true
+      password:
+        algorithm: 'bcrypt'
+      userLookup:
+        userDomainClassName: 'ora.auth.User'
+        authorityJoinClassName: 'ora.auth.UserRole'
+      authority:
+        className: 'ora.auth.Role'
+      securityConfigType: "Annotation"
+      rejectIfNoRule: false
+      rejectPublicInvocations: false
+      filterChain:
+        chainMap:
+          - pattern: '/assets/**'
+            filters: 'none'
+          - pattern: '/**/js/**'
+            filters: 'none'
+          - pattern: '/**/css/**'
+            filters: 'none'
+          - pattern: '/**/images/**'
+            filters: 'none'
+          - pattern: '/**/favicon.ico'
+            filters: 'none'
+          - pattern: '/auth/login'
+            filters: 'none'
+          - pattern: '/monitoring-ws/**'
+            filters: 'none'
+          - pattern: '/**'
+            filters: 'JOINED_FILTERS'
+      controllerAnnotations:
+        staticRules:
+          - pattern: '/assets/**'
+            access: ['permitAll']
+          - pattern: '/**/js/**'
+            access: ['permitAll']
+          - pattern: '/**/css/**'
+            access: ['permitAll']
+          - pattern: '/**/images/**'
+            access: ['permitAll']
+          - pattern: '/**/favicon.ico'
+            access: ['permitAll']
+          - pattern: '/auth/login'
+            access: ['permitAll']
+          - pattern: '/logout/**'
+            access: ['permitAll']
+          - pattern: '/error'
+            access: ['permitAll']
+          - pattern: '/monitoring-ws/**'
+            access: ['permitAll']
+          - pattern: '/'
+            access: ['ROLE_USER']
+          - pattern: '/monitoring/**'
+            access: ['ROLE_USER']
+      auth:
+        loginFormUrl: '/auth/login'
+        ajaxLoginFormUrl: '/auth/login'
+        useForward: false
+        loginFormContentType: 'text/html'
+      apf:
+        filterProcessesUrl: '/j_spring_security_check'
+        usernameParameter: 'j_username'
+        passwordParameter: 'j_password'
+      successHandler:
+        defaultTargetUrl: '/monitoring'
+        alwaysUseDefault: true
+      failureHandler:
+        defaultFailureUrl: '/login/auth?login_error=1'
+      logout:
+        postOnly: false
+        afterLogoutUrl: '/'
+---
 info:
   app:
     name: '@info.app.name@'
@@ -143,3 +217,91 @@ grails:
     bundle: false
     minifyJs: true
     minifyCss: true
+---
+grails:
+  plugin:
+    springsecurity:
+      password:
+        algorithm: 'bcrypt'
+        encodeHashAsBase64: true
+        hash:
+          iterations: 10
+      rest:
+        token:
+          storage:
+            jwt:
+              secret: ${JWT_SECRET:pleaseChangeThisSecretForANewOne}
+              expiration: 3600
+          validation:
+            useBearerToken: true
+            headerName: 'Authorization'
+        login:
+          active: true
+          endpointUrl: '/api/login'
+          failureStatusCode: 401
+          useJsonCredentials: true
+          usernamePropertyName: username
+          passwordPropertyName: password
+        logout:
+          endpointUrl: '/api/logout'
+      filterChain:
+        chainMap:
+          - pattern: /assets/**
+            filters: 'none'
+          - pattern: /**/js/**
+            filters: 'none'
+          - pattern: /**/css/**
+            filters: 'none'
+          - pattern: /**/images/**
+            filters: 'none'
+          - pattern: /**/favicon.ico
+            filters: 'none'
+          - pattern: /api/**
+            filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
+          - pattern: /auth/**
+            filters: 'none'
+          - pattern: /**
+            filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'
+      userLookup:
+        userDomainClassName: 'ora.auth.User'
+        authorityJoinClassName: 'ora.auth.UserRole'
+      authority:
+        className: 'ora.auth.Role'
+      controllerAnnotations:
+        staticRules:
+          - pattern: '/api/login'
+            access: ['permitAll']
+          - pattern: '/api/logout'
+            access: ['isAuthenticated()']
+          - pattern: '/api/validate'
+            access: ['permitAll']
+          - pattern: '/api/refresh'
+            access: ['permitAll']
+          - pattern: '/'
+            access: ['IS_AUTHENTICATED_FULLY']
+          - pattern: '/error'
+            access: ['permitAll']
+          - pattern: '/index'
+            access: ['IS_AUTHENTICATED_FULLY']
+          - pattern: '/index.gsp'
+            access: ['IS_AUTHENTICATED_FULLY']
+          - pattern: '/shutdown'
+            access: ['permitAll']
+          - pattern: '/assets/**'
+            access: ['permitAll']
+          - pattern: '/**/js/**'
+            access: ['permitAll']
+          - pattern: '/**/css/**'
+            access: ['permitAll']
+          - pattern: '/**/images/**'
+            access: ['permitAll']
+          - pattern: '/**/favicon.ico'
+            access: ['permitAll']
+          - pattern: '/api/login'
+            access: ['permitAll']
+          - pattern: '/api/logout'
+            access: ['permitAll']
+          - pattern: '/auth/**'
+            access: ['permitAll']
+          - pattern: '/private/open/healthCheck'
+            access: ['permitAll']

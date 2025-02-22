@@ -10,6 +10,7 @@ class UrlMappings {
 
         "/"(controller: 'monitoring')
         "/private/open/healthCheck"(controller: 'healthCheck')
+        "/auth/login"(controller: 'login', action: 'login')
         "500"(view: '/error')
         "404"(view: '/notFound')
 

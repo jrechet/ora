@@ -1,11 +1,13 @@
 package ora.monitoring
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import ora.monitoring.apps.ApplicationInstance
 import ora.monitoring.consumer.http.HttpClientDelegateService
 
 import java.time.format.DateTimeFormatter
 
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class MonitoringController {
 
     def monitoringService
