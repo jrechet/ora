@@ -4,6 +4,7 @@ Thumbs.db
 build/
 target/
 out/
+bin/
 .idea
 *.iml
 *.ipr
@@ -14,6 +15,7 @@ out/
 .factorypath
 .aider*
 .env
+.codebuddy/
 /grails-app/conf/ora/
 gitpush.sh
 bin
