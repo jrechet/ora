@@ -1,0 +1,633 @@
+Initialized native services in: /Users/jre/.gradle/native
+Initialized jansi services in: /Users/jre/.gradle/native
+Received JVM installation metadata from '/Users/jre/.sdkman/candidates/java/17.0.9-graalce': {JAVA_HOME=/Users/jre/.sdkman/candidates/java/17.0.9-graalce, JAVA_VERSION=17.0.9, JAVA_VENDOR=GraalVM Community, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.9+9-jvmci-23.0-b22, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.9+9-jvmci-23.0-b22, VM_VENDOR=GraalVM Community, OS_ARCH=aarch64}
+Found daemon DaemonInfo{pid=5868, address=[69cfca8c-e7fb-41a2-ae05-61d97290c612 port:56554, addresses:[/127.0.0.1]], state=Idle, lastBusy=1740901499960, context=DefaultDaemonContext[uid=2fb90bfd-ced4-4d26-94ef-ce120a0aaddc,javaHome=/Users/jre/Library/Java/JavaVirtualMachines/corretto-11.0.21/Contents/Home,daemonRegistryDir=/Users/jre/.gradle/daemon,pid=5868,idleTimeout=10800000,priority=NORMAL,daemonOpts=--add-opens=java.base/java.util=ALL-UNNAMED,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.base/java.lang.invoke=ALL-UNNAMED,--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED,--add-opens=java.base/java.nio.charset=ALL-UNNAMED,--add-opens=java.base/java.net=ALL-UNNAMED,--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,-Xmx1g,-Dfile.encoding=UTF-8,-Duser.country=FR,-Duser.language=fr,-Duser.variant]} however its context does not match the desired criteria.
+Java home is different.
+Wanted: DefaultDaemonContext[uid=null,javaHome=/Users/jre/.sdkman/candidates/java/17.0.9-graalce,daemonRegistryDir=/Users/jre/.gradle/daemon,pid=10213,idleTimeout=null,priority=NORMAL,daemonOpts=--add-opens=java.base/java.util=ALL-UNNAMED,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.base/java.lang.invoke=ALL-UNNAMED,--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED,--add-opens=java.base/java.nio.charset=ALL-UNNAMED,--add-opens=java.base/java.net=ALL-UNNAMED,--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,-Xmx1g,-Dfile.encoding=UTF-8,-Duser.country=FR,-Duser.language=fr,-Duser.variant]
+Actual: DefaultDaemonContext[uid=2fb90bfd-ced4-4d26-94ef-ce120a0aaddc,javaHome=/Users/jre/Library/Java/JavaVirtualMachines/corretto-11.0.21/Contents/Home,daemonRegistryDir=/Users/jre/.gradle/daemon,pid=5868,idleTimeout=10800000,priority=NORMAL,daemonOpts=--add-opens=java.base/java.util=ALL-UNNAMED,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.base/java.lang.invoke=ALL-UNNAMED,--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED,--add-opens=java.base/java.nio.charset=ALL-UNNAMED,--add-opens=java.base/java.net=ALL-UNNAMED,--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,-Xmx1g,-Dfile.encoding=UTF-8,-Duser.country=FR,-Duser.language=fr,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 9363). The daemon log file: /Users/jre/.gradle/daemon/7.6.4/daemon-9363.out.log
+Starting 6th build in daemon [uptime: 17 mins 2.34 secs, performance: 100%]
+Using 14 worker leases.
+Now considering [/Users/jre/dev/Ora, /Users/jre/dev/Ora/buildSrc] as hierarchies to watch
+Now considering [/Users/jre/dev/Ora/buildSrc, /Users/jre/dev/Ora] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file '/Users/jre/dev/Ora/settings.gradle'.
+Using local directory build cache for the root build (location = /Users/jre/.gradle/caches/build-cache-1, removeUnusedEntriesAfter = 7 days).
+Projects loaded. Root project using build file '/Users/jre/dev/Ora/build.gradle'.
+Included projects: [root project 'ora']
+
+> Configure project :buildSrc
+Evaluating project ':buildSrc' using build file '/Users/jre/dev/Ora/buildSrc/build.gradle'.
+Task name matched 'build'
+Selected primary task 'build' from project :
+Resolve mutations for :buildSrc:compileJava (Thread[Execution worker,5,main]) started.
+:buildSrc:compileJava (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:compileJava NO-SOURCE
+Skipping task ':buildSrc:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:compileGroovy (Thread[Execution worker,5,main]) started.
+:buildSrc:compileGroovy (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:compileGroovy NO-SOURCE
+Skipping task ':buildSrc:compileGroovy' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:processResources (Thread[Execution worker,5,main]) started.
+:buildSrc:processResources (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:processResources NO-SOURCE
+Skipping task ':buildSrc:processResources' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:classes (Thread[Execution worker,5,main]) started.
+:buildSrc:classes (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:classes UP-TO-DATE
+Skipping task ':buildSrc:classes' as it has no actions.
+Resolve mutations for :buildSrc:jar (Thread[Execution worker,5,main]) started.
+:buildSrc:jar (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:jar UP-TO-DATE
+Caching disabled for task ':buildSrc:jar' because:
+  Not worth caching
+Skipping task ':buildSrc:jar' as it is up-to-date.
+Resolve mutations for :buildSrc:assemble (Thread[Execution worker,5,main]) started.
+:buildSrc:assemble (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:assemble UP-TO-DATE
+Skipping task ':buildSrc:assemble' as it has no actions.
+Resolve mutations for :buildSrc:compileTestJava (Thread[Execution worker,5,main]) started.
+:buildSrc:compileTestJava (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:compileTestJava NO-SOURCE
+Skipping task ':buildSrc:compileTestJava' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:compileTestGroovy (Thread[Execution worker,5,main]) started.
+:buildSrc:compileTestGroovy (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+Skipping task ':buildSrc:compileTestGroovy' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:processTestResources (Thread[Execution worker,5,main]) started.
+:buildSrc:processTestResources (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:processTestResources NO-SOURCE
+Skipping task ':buildSrc:processTestResources' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:testClasses (Thread[Execution worker,5,main]) started.
+:buildSrc:testClasses (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:testClasses UP-TO-DATE
+Skipping task ':buildSrc:testClasses' as it has no actions.
+Resolve mutations for :buildSrc:test (Thread[Execution worker,5,main]) started.
+:buildSrc:test (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:test NO-SOURCE
+Skipping task ':buildSrc:test' as it has no source files and no previous output files.
+Resolve mutations for :buildSrc:check (Thread[Execution worker,5,main]) started.
+:buildSrc:check (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:check UP-TO-DATE
+Skipping task ':buildSrc:check' as it has no actions.
+Resolve mutations for :buildSrc:build (Thread[Execution worker,5,main]) started.
+:buildSrc:build (Thread[Execution worker,5,main]) started.
+
+> Task :buildSrc:build UP-TO-DATE
+Skipping task ':buildSrc:build' as it has no actions.
+
+> Configure project :
+Evaluating root project 'ora' using build file '/Users/jre/dev/Ora/build.gradle'.
+Applying dependency management to configuration 'annotationProcessor' in project 'ora'
+Applying dependency management to configuration 'apiElements' in project 'ora'
+Applying dependency management to configuration 'archives' in project 'ora'
+Applying dependency management to configuration 'bootArchives' in project 'ora'
+Applying dependency management to configuration 'compileClasspath' in project 'ora'
+Applying dependency management to configuration 'compileOnly' in project 'ora'
+Applying dependency management to configuration 'default' in project 'ora'
+Applying dependency management to configuration 'developmentOnly' in project 'ora'
+Applying dependency management to configuration 'gspCompile' in project 'ora'
+Applying dependency management to configuration 'implementation' in project 'ora'
+Applying dependency management to configuration 'mainSourceElements' in project 'ora'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'ora'
+Applying dependency management to configuration 'profile' in project 'ora'
+Applying dependency management to configuration 'runtimeClasspath' in project 'ora'
+Applying dependency management to configuration 'runtimeElements' in project 'ora'
+Applying dependency management to configuration 'runtimeOnly' in project 'ora'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'ora'
+Applying dependency management to configuration 'testCompileClasspath' in project 'ora'
+Applying dependency management to configuration 'testCompileOnly' in project 'ora'
+Applying dependency management to configuration 'testImplementation' in project 'ora'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'ora'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'ora'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'ora'
+Applying dependency management to configuration 'integrationTestImplementation' in project 'ora'
+Applying dependency management to configuration 'integrationTestCompileOnly' in project 'ora'
+Applying dependency management to configuration 'integrationTestCompileClasspath' in project 'ora'
+Applying dependency management to configuration 'integrationTestAnnotationProcessor' in project 'ora'
+Applying dependency management to configuration 'integrationTestRuntimeOnly' in project 'ora'
+Applying dependency management to configuration 'integrationTestRuntimeClasspath' in project 'ora'
+Applying dependency management to configuration 'agent' in project 'ora'
+Applying dependency management to configuration 'console' in project 'ora'
+Applying dependency management to configuration 'providedCompile' in project 'ora'
+Applying dependency management to configuration 'providedRuntime' in project 'ora'
+Applying dependency management to configuration 'assets' in project 'ora'
+Resolving global dependency management for project 'ora'
+All projects evaluated.
+Task name matched 'clean'
+Task name matched 'integrationTest'
+Selected primary task 'clean' from project :
+Selected primary task 'integrationTest' from project :
+Tasks to be executed: [task ':clean', task ':compileJava', task ':compileGroovy', task ':buildProperties', task ':processResources', task ':classes', task ':compileTestJava', task ':compileTestGroovy', task ':processTestResources', task ':testClasses', task ':compileIntegrationTestJava', task ':compileIntegrationTestGroovy', task ':configureChromeDriverBinary', task ':configureEdgeDriverBinary', task ':configureGeckoDriverBinary', task ':processIntegrationTestResources', task ':integrationTestClasses', task ':integrationTest', task ':mergeTestReports']
+Tasks that were excluded: []
+Resolve mutations for :clean (Thread[Execution worker Thread 9,5,main]) started.
+:clean (Thread[Execution worker Thread 9,5,main]) started.
+destroyer locations for task group 0 (Thread[included builds,5,main]) started.
+
+> Task :clean
+Caching disabled for task ':clean' because:
+  Deletion cannot be cached
+Task ':clean' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :compileJava (Thread[Execution worker Thread 9,5,main]) started.
+:compileJava (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :compileJava NO-SOURCE
+Skipping task ':compileJava' as it has no source files and no previous output files.
+Resolve mutations for :compileGroovy (Thread[Execution worker Thread 9,5,main]) started.
+:compileGroovy (Thread[Execution worker Thread 9,5,main]) started.
+This JVM does not support getting OS memory, so no OS memory status updates will be broadcast
+
+> Task :compileGroovy
+Build cache key for task ':compileGroovy' is ba47eb00dd109240bb91462915fd1263
+Task ':compileGroovy' is not up-to-date because:
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/classes/groovy/main has been removed.
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/classes/groovy/main/META-INF has been removed.
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/classes/groovy/main/META-INF/micronaut has been removed.
+The input changes require a full rebuild for incremental task ':compileGroovy'.
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Starting process 'Gradle Worker Daemon 10'. Working directory: /Users/jre/.gradle/workers Command: /Users/jre/.sdkman/candidates/java/17.0.9-graalce/bin/java -Dgroovy.antlr4.cache.threshold=0 -Dgroovy.parallel.parse=true --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED @/Users/jre/.gradle/.tmp/gradle-worker-classpath1995138792797069634txt -Xmx2g -Dfile.encoding=UTF-8 -Duser.country=FR -Duser.language=fr -Duser.variant worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Worker Daemon 10'
+Successfully started process 'Gradle Worker Daemon 10'
+Started Gradle worker daemon (0.168 secs) with fork options DaemonForkOptions{executable=/Users/jre/.sdkman/candidates/java/17.0.9-graalce/bin/java, minHeapSize=null, maxHeapSize=2g, jvmArgs=[--add-opens=java.base/java.lang=ALL-UNNAMED, --add-opens=java.base/java.lang.invoke=ALL-UNNAMED, --add-opens=java.base/java.util=ALL-UNNAMED, --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED], keepAliveMode=SESSION}.
+Class dependency analysis for incremental compilation took 0.014 secs.
+Created classpath snapshot for incremental compilation in 0.017 secs.
+Stored cache entry for task ':compileGroovy' with cache key ba47eb00dd109240bb91462915fd1263
+Resolve mutations for :buildProperties (Thread[Execution worker Thread 9,5,main]) started.
+:buildProperties (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :buildProperties
+Custom actions are attached to task ':buildProperties'.
+Caching disabled for task ':buildProperties' because:
+  Gradle would require more information to cache this task
+Task ':buildProperties' is not up-to-date because:
+  Output property '$1' file /Users/jre/dev/Ora/build/resources/main/META-INF/grails.build.info has been removed.
+[ant:propertyfile] Creating new property file: /Users/jre/dev/Ora/build/resources/main/META-INF/grails.build.info
+Resolve mutations for :processResources (Thread[Execution worker Thread 9,5,main]) started.
+:processResources (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :processResources
+Caching disabled for task ':processResources' because:
+  Not worth caching
+Task ':processResources' is not up-to-date because:
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/main/application.yml has been removed.
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/main/auth has been removed.
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/main/auth/denied.gsp has been removed.
+file or directory '/Users/jre/dev/Ora/src/main/resources', not found
+file or directory '/Users/jre/dev/Ora/src/main/templates', not found
+file or directory '/Users/jre/dev/Ora/src/main/resources', not found
+file or directory '/Users/jre/dev/Ora/src/main/resources', not found
+file or directory '/Users/jre/dev/Ora/src/main/resources', not found
+Resolve mutations for :classes (Thread[Execution worker Thread 9,5,main]) started.
+:classes (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :classes
+Skipping task ':classes' as it has no actions.
+Resolve mutations for :compileTestJava (Thread[Execution worker Thread 9,5,main]) started.
+:compileTestJava (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :compileTestJava NO-SOURCE
+Skipping task ':compileTestJava' as it has no source files and no previous output files.
+Resolve mutations for :compileTestGroovy (Thread[Execution worker Thread 9,5,main]) started.
+:compileTestGroovy (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :compileTestGroovy NO-SOURCE
+Skipping task ':compileTestGroovy' as it has no source files and no previous output files.
+Resolve mutations for :processTestResources (Thread[Execution worker Thread 9,5,main]) started.
+:processTestResources (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :processTestResources
+Caching disabled for task ':processTestResources' because:
+  Not worth caching
+Task ':processTestResources' is not up-to-date because:
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/test has been removed.
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/test/test-config.yml has been removed.
+Resolve mutations for :testClasses (Thread[Execution worker Thread 9,5,main]) started.
+:testClasses (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :testClasses
+Skipping task ':testClasses' as it has no actions.
+Resolve mutations for :compileIntegrationTestJava (Thread[Execution worker Thread 9,5,main]) started.
+:compileIntegrationTestJava (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :compileIntegrationTestJava NO-SOURCE
+Skipping task ':compileIntegrationTestJava' as it has no source files and no previous output files.
+Resolve mutations for :compileIntegrationTestGroovy (Thread[Execution worker Thread 9,5,main]) started.
+:compileIntegrationTestGroovy (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :compileIntegrationTestGroovy
+Build cache key for task ':compileIntegrationTestGroovy' is e1e4c2dc6d7d9721376880e097ed0ea4
+Task ':compileIntegrationTestGroovy' is not up-to-date because:
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/classes/groovy/integrationTest has been removed.
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/classes/groovy/integrationTest/ora has been removed.
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/classes/groovy/integrationTest/ora/monitoring has been removed.
+The input changes require a full rebuild for incremental task ':compileIntegrationTestGroovy'.
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+file or directory '/Users/jre/dev/Ora/src/integrationTest/groovy', not found
+Class dependency analysis for incremental compilation took 0.0 secs.
+Created classpath snapshot for incremental compilation in 0.016 secs.
+Stored cache entry for task ':compileIntegrationTestGroovy' with cache key e1e4c2dc6d7d9721376880e097ed0ea4
+Resolve mutations for :configureChromeDriverBinary (Thread[Execution worker Thread 9,5,main]) started.
+:configureChromeDriverBinary (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :configureChromeDriverBinary SKIPPED
+Skipping task ':configureChromeDriverBinary' as task onlyIf 'Task satisfies onlyIf closure' is false.
+Resolve mutations for :configureEdgeDriverBinary (Thread[Execution worker Thread 9,5,main]) started.
+:configureEdgeDriverBinary (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :configureEdgeDriverBinary SKIPPED
+Skipping task ':configureEdgeDriverBinary' as task onlyIf 'Task satisfies onlyIf closure' is false.
+Resolve mutations for :configureGeckoDriverBinary (Thread[Execution worker Thread 9,5,main]) started.
+:configureGeckoDriverBinary (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :configureGeckoDriverBinary SKIPPED
+Skipping task ':configureGeckoDriverBinary' as task onlyIf 'Task satisfies onlyIf closure' is false.
+Resolve mutations for :processIntegrationTestResources (Thread[Execution worker Thread 9,5,main]) started.
+:processIntegrationTestResources (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :processIntegrationTestResources
+Caching disabled for task ':processIntegrationTestResources' because:
+  Not worth caching
+Task ':processIntegrationTestResources' is not up-to-date because:
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/integrationTest has been removed.
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/integrationTest/application.yml has been removed.
+  Output property 'destinationDir' file /Users/jre/dev/Ora/build/resources/integrationTest/GebConfig.groovy has been removed.
+file or directory '/Users/jre/dev/Ora/src/integrationTest/resources', not found
+Resolve mutations for :integrationTestClasses (Thread[Execution worker Thread 9,5,main]) started.
+:integrationTestClasses (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :integrationTestClasses
+Skipping task ':integrationTestClasses' as it has no actions.
+Resolve mutations for :integrationTest (Thread[Execution worker Thread 9,5,main]) started.
+:integrationTest (Thread[Execution worker Thread 9,5,main]) started.
+Gradle Test Executor 11 started executing tests.
+
+> Task :integrationTest
+Build cache key for task ':integrationTest' is c3e309fb42502606fe077b99e07963f0
+Task ':integrationTest' is not up-to-date because:
+  Task has failed previously.
+file or directory '/Users/jre/dev/Ora/build/classes/java/integrationTest', not found
+Starting process 'Gradle Test Executor 11'. Working directory: /Users/jre/dev/Ora Command: /Users/jre/.sdkman/candidates/java/17.0.9-graalce/bin/java -Dgeb.build.reportsDir=/Users/jre/dev/Ora/build/reports/geb/integrationTest -Dgeb.env -Dgrails.env=test -Dgrails.full.stacktrace -Dinfo.app.grailsVersion=6.2.1 -Dinfo.app.name=ora -Dinfo.app.version=2025.01.01 -Dorg.gradle.internal.worker.tmpdir=/Users/jre/dev/Ora/build/tmp/integrationTest/work -Dorg.gradle.native=false -Dwebdriver.chrome.driver=null/chromedriver -Dwebdriver.gecko.driver=null/geckodriver -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:CICompilerCount=3 @/Users/jre/.gradle/.tmp/gradle-worker-classpath14371979227883074235txt -Xms768m -Xmx768m -Dfile.encoding=UTF-8 -Duser.country=FR -Duser.language=fr -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 11'
+Successfully started process 'Gradle Test Executor 11'
+
+Gradle Test Executor 11 STANDARD_OUT
+    09:05:27,123 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+    09:05:27,123 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/Users/jre/dev/Ora/build/resources/integrationTest/logback.xml]
+    09:05:27,124 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs multiple times on the classpath.
+    09:05:27,124 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs at [file:/Users/jre/dev/Ora/build/resources/integrationTest/logback.xml]
+    09:05:27,124 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs at [file:/Users/jre/dev/Ora/build/resources/main/logback.xml]
+    09:05:27,142 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+    09:05:27,143 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
+    09:05:27,143 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
+    09:05:27,143 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+    09:05:27,145 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+    09:05:27,146 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+    09:05:27,147 |-WARN in ch.qos.logback.classic.encoder.PatternLayoutEncoder@1a2e2935 - As of version 1.2.0 "immediateFlush" property should be set within the enclosing Appender.
+    09:05:27,147 |-WARN in ch.qos.logback.classic.encoder.PatternLayoutEncoder@1a2e2935 - Please move "immediateFlush" property into the enclosing appender.
+    09:05:27,152 |-WARN in ch.qos.logback.classic.encoder.PatternLayoutEncoder@1a2e2935 - Setting the "immediateFlush" property of the enclosing appender to true
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [ora] to ERROR
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [ora] to false
+    09:05:27,153 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ora]
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to ERROR
+    09:05:27,153 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [org.springframework] to ERROR
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [org.hibernate] to ERROR
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+    09:05:27,153 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@733c423e - Registering current configuration as safe fallback point
+
+
+MonitoringWebSocketServerIntegrationSpec STANDARD_OUT
+
+    Configuring Spring Security Core ...
+    ... finished configuring Spring Security Core
+
+
+    Configuring Spring Security REST 5.0.1...
+    ... finished configuring Spring Security REST
+
+    09:05:30.867 [Test worker] ERROR ora.monitoring.MonitoringService - Environment dev not found for project espace-client
+    09:05:30.874 [Test worker] ERROR ora.monitoring.MonitoringService - Environment prod not found for project espace-client
+    09:05:31.264 [ForkJoinPool.commonPool-worker-13] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.264 [ForkJoinPool.commonPool-worker-7] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.265 [ForkJoinPool.commonPool-worker-2] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.268 [ForkJoinPool.commonPool-worker-12] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.275 [ForkJoinPool.commonPool-worker-4] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.307 [ForkJoinPool.commonPool-worker-1] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    Grails application running at http://localhost:57979 in environment: test
+
+MonitoringWebSocketServerIntegrationSpec > should successfully establish WebSocket connection STANDARD_OUT
+    [DEBUG_LOG] Server port: ws://localhost:57979
+    [DEBUG_LOG] Security context setup complete
+    [DEBUG_LOG] Authentication: UsernamePasswordAuthenticationToken [Principal=testuser, Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER, ROLE_ADMIN]]
+    [DEBUG_LOG] Authorities: [ROLE_USER, ROLE_ADMIN]
+    [DEBUG_LOG] Attempting to connect to WebSocket at: ws://localhost:57979/monitoring-ws
+    09:05:31.549 [http-nio-auto-1-exec-1] ERROR o.a.c.c.C.[.[.[.[grailsDispatcherServlet] - Servlet.service() for servlet [grailsDispatcherServlet] in context with path [] threw exception
+    java.lang.IllegalArgumentException: Secure object invocation filter invocation [GET /monitoring-ws] was denied as public invocations are not allowed via this interceptor. This indicates a configuration error because the rejectPublicInvocations property is set to 'true'
+    	at org.springframework.util.Assert.isTrue(Assert.java:139)
+    	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:188)
+    	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:113)
+    	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+    	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+    	at grails.plugin.springsecurity.web.UpdateRequestContextHolderExceptionTranslationFilter.doFilter(UpdateRequestContextHolderExceptionTranslationFilter.groovy:64)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at grails.plugin.springsecurity.web.filter.GrailsAnonymousAuthenticationFilter.doFilter(GrailsAnonymousAuthenticationFilter.groovy:54)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:141)
+    	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:97)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at grails.plugin.springsecurity.rest.RestAuthenticationFilter.doFilter(RestAuthenticationFilter.groovy:134)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+    	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at grails.plugin.springsecurity.web.authentication.logout.MutableLogoutFilter.doFilter(MutableLogoutFilter.groovy:64)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+    	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at grails.plugin.springsecurity.web.SecurityRequestHolderFilter.doFilter(SecurityRequestHolderFilter.groovy:58)
+    	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+    	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+    	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+    	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+    	at org.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:77)
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+    	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+    	at org.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:67)
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+    	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+    	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+    	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+    	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96)
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+    	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+    	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+    	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+    	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+    	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+    	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+    	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+    	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+    	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+    	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+    	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+    	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+    	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928)
+    	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794)
+    	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+    	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+    	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+    	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+    	at java.base/java.lang.Thread.run(Thread.java:840)
+    09:05:31.581 [ForkJoinPool.commonPool-worker-1] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.602 [ForkJoinPool.commonPool-worker-4] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.609 [ForkJoinPool.commonPool-worker-5] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.613 [ForkJoinPool.commonPool-worker-9] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.613 [ForkJoinPool.commonPool-worker-13] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    09:05:31.792 [ForkJoinPool.commonPool-worker-2] ERROR o.m.c.gitlab.GitLabClientService - Erreur d'authentification GitLab - Token invalide ou expiré
+    [DEBUG_LOG] Connection failed with error: Handshake error.
+
+MonitoringWebSocketServerIntegrationSpec > should successfully establish WebSocket connection STANDARD_ERROR
+    javax.websocket.DeploymentException: Handshake error.
+    	at org.glassfish.tyrus.client.ClientManager$3$1.run(ClientManager.java:658)
+    	at org.glassfish.tyrus.client.ClientManager$3.run(ClientManager.java:696)
+    	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+    	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    	at org.glassfish.tyrus.client.ClientManager$SameThreadExecutorService.execute(ClientManager.java:849)
+    	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:123)
+    	at org.glassfish.tyrus.client.ClientManager.connectToServer(ClientManager.java:493)
+    	at org.glassfish.tyrus.client.ClientManager.connectToServer(ClientManager.java:355)
+    	at javax.websocket.WebSocketContainer$connectToServer.call(Unknown Source)
+    	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+    	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+    	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:148)
+    	at ora.monitoring.websocket.TestWebSocketClient.connect(MonitoringWebSocketServerIntegrationSpec.groovy:101)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+    	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:48)
+    	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrap.invoke(PogoMetaMethodSite.java:178)
+    	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.call(PogoMetaMethodSite.java:69)
+    	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+    	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+    	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+    	at ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec.$tt__$spock_feature_0_0(MonitoringWebSocketServerIntegrationSpec.groovy:65)
+    	at ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec$__spock_feature_0_0_closure3.doCall(MonitoringWebSocketServerIntegrationSpec.groovy)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+    	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+    	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+    	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+    	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1030)
+    	at groovy.lang.Closure.call(Closure.java:427)
+    	at groovy.lang.Closure.call(Closure.java:416)
+    	at grails.gorm.transactions.GrailsTransactionTemplate$1.doInTransaction(GrailsTransactionTemplate.groovy:68)
+    	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140)
+    	at grails.gorm.transactions.GrailsTransactionTemplate.executeAndRollback(GrailsTransactionTemplate.groovy:65)
+    	at ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec.$spock_feature_0_0(MonitoringWebSocketServerIntegrationSpec.groovy)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+    	at org.spockframework.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:198)
+    	at org.spockframework.runtime.model.MethodInfo.lambda$new$0(MethodInfo.java:47)
+    	at org.spockframework.runtime.model.MethodInfo.invoke(MethodInfo.java:148)
+    	at org.spockframework.runtime.PlatformSpecRunner.invokeRaw(PlatformSpecRunner.java:407)
+    	at org.spockframework.runtime.PlatformSpecRunner.invoke(PlatformSpecRunner.java:390)
+    	at org.spockframework.runtime.PlatformSpecRunner.runFeatureMethod(PlatformSpecRunner.java:324)
+    	at org.spockframework.runtime.IterationNode.execute(IterationNode.java:48)
+    	at org.spockframework.runtime.SimpleFeatureNode.execute(SimpleFeatureNode.java:58)
+    	at org.spockframework.runtime.SimpleFeatureNode.execute(SimpleFeatureNode.java:15)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+    	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+    	at org.spockframework.runtime.SpockNode.sneakyInvoke(SpockNode.java:40)
+    	at org.spockframework.runtime.IterationNode.lambda$around$0(IterationNode.java:63)
+    	at org.spockframework.runtime.PlatformSpecRunner.lambda$createMethodInfoForDoRunIteration$5(PlatformSpecRunner.java:236)
+    	at org.spockframework.runtime.model.MethodInfo.invoke(MethodInfo.java:148)
+    	at org.spockframework.runtime.PlatformSpecRunner.invokeRaw(PlatformSpecRunner.java:407)
+    	at org.spockframework.runtime.PlatformSpecRunner.invoke(PlatformSpecRunner.java:390)
+    	at org.spockframework.runtime.PlatformSpecRunner.runIteration(PlatformSpecRunner.java:218)
+    	at org.spockframework.runtime.IterationNode.around(IterationNode.java:63)
+    	at org.spockframework.runtime.SimpleFeatureNode.lambda$around$0(SimpleFeatureNode.java:52)
+    	at org.spockframework.runtime.SpockNode.sneakyInvoke(SpockNode.java:40)
+    	at org.spockframework.runtime.FeatureNode.lambda$around$0(FeatureNode.java:29)
+    	at org.spockframework.runtime.PlatformSpecRunner.lambda$createMethodInfoForDoRunFeature$4(PlatformSpecRunner.java:199)
+    	at org.spockframework.runtime.model.MethodInfo.invoke(MethodInfo.java:148)
+    	at org.spockframework.runtime.PlatformSpecRunner.invokeRaw(PlatformSpecRunner.java:407)
+    	at org.spockframework.runtime.PlatformSpecRunner.invoke(PlatformSpecRunner.java:390)
+    	at org.spockframework.runtime.PlatformSpecRunner.runFeature(PlatformSpecRunner.java:192)
+    	at org.spockframework.runtime.FeatureNode.around(FeatureNode.java:29)
+    	at org.spockframework.runtime.SimpleFeatureNode.around(SimpleFeatureNode.java:52)
+    	at org.spockframework.runtime.SimpleFeatureNode.around(SimpleFeatureNode.java:15)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+    	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+    	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+    	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+    	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+    	at org.spockframework.runtime.SpockNode.sneakyInvoke(SpockNode.java:40)
+    	at org.spockframework.runtime.SpecNode.lambda$around$0(SpecNode.java:63)
+    	at org.spockframework.runtime.PlatformSpecRunner.lambda$createMethodInfoForDoRunSpec$0(PlatformSpecRunner.java:61)
+    	at org.spockframework.runtime.model.MethodInfo.invoke(MethodInfo.java:148)
+    	at org.spockframework.runtime.PlatformSpecRunner.invokeRaw(PlatformSpecRunner.java:407)
+    	at org.spockframework.runtime.PlatformSpecRunner.invoke(PlatformSpecRunner.java:390)
+    	at org.spockframework.runtime.PlatformSpecRunner.runSpec(PlatformSpecRunner.java:55)
+    	at org.spockframework.runtime.SpecNode.around(SpecNode.java:63)
+    	at org.spockframework.runtime.SpecNode.around(SpecNode.java:11)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+    	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+    	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+    	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+    	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+    	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+    	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+    	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+    	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+    	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+    	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+    	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+    	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+    	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+    	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+    	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+    	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+    	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+    	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+    	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+    	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+    	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+    	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+    	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+    	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+    	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+    	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+    	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+    	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+    	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+    	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+    	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+    	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+    	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+    	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+    	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+    	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+    	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+    Caused by: org.glassfish.tyrus.core.HandshakeException: Response code was not 101: 500.
+    	at org.glassfish.tyrus.client.TyrusClientEngine.processResponse(TyrusClientEngine.java:299)
+    	at org.glassfish.tyrus.container.grizzly.client.GrizzlyClientFilter.handleHandshake(GrizzlyClientFilter.java:322)
+    	at org.glassfish.tyrus.container.grizzly.client.GrizzlyClientFilter.handleRead(GrizzlyClientFilter.java:291)
+    	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+    	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:283)
+    	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:200)
+    	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:132)
+    	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:111)
+    	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+    	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:536)
+    	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+    	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+    	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+    	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+    	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:591)
+    	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:571)
+    	at java.base/java.lang.Thread.run(Thread.java:840)
+
+MonitoringWebSocketServerIntegrationSpec > should successfully establish WebSocket connection FAILED
+    Condition not satisfied:
+
+    connected
+    |
+    false
+        at app//ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec.$tt__$spock_feature_0_0(MonitoringWebSocketServerIntegrationSpec.groovy:68)
+        at ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec.should successfully establish WebSocket connection_closure3(MonitoringWebSocketServerIntegrationSpec.groovy)
+        at app//groovy.lang.Closure.call(Closure.java:427)
+        at app//groovy.lang.Closure.call(Closure.java:416)
+        at app//grails.gorm.transactions.GrailsTransactionTemplate$1.doInTransaction(GrailsTransactionTemplate.groovy:68)
+        at app//org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140)
+        at app//grails.gorm.transactions.GrailsTransactionTemplate.executeAndRollback(GrailsTransactionTemplate.groovy:65)
+        at ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec.should successfully establish WebSocket connection(MonitoringWebSocketServerIntegrationSpec.groovy)
+
+Gradle Test Executor 11 finished executing tests.
+
+> Task :integrationTest FAILED
+
+1 test completed, 1 failed
+Finished generating test XML results (0.0 secs) into: /Users/jre/dev/Ora/build/test-results/integrationTest
+Test report disabled, omitting generation of the HTML test report.
+Resolve mutations for :mergeTestReports (Thread[Execution worker Thread 9,5,main]) started.
+:mergeTestReports (Thread[Execution worker Thread 9,5,main]) started.
+
+> Task :mergeTestReports
+Caching disabled for task ':mergeTestReports' because:
+  Not made cacheable, yet
+Task ':mergeTestReports' is not up-to-date because:
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/reports/tests has been removed.
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/reports/tests/classes has been removed.
+  Output property 'destinationDirectory' file /Users/jre/dev/Ora/build/reports/tests/classes/ora.monitoring.websocket.MonitoringWebSocketServerIntegrationSpec.html has been removed.
+Generating HTML test report...
+Finished generating test html results (0.002 secs) into: /Users/jre/dev/Ora/build/reports/tests
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':integrationTest'.
+> There were failing tests. See the results at: file:///Users/jre/dev/Ora/build/test-results/integrationTest/
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 9s
+10 actionable tasks: 9 executed, 1 up-to-date
+Watched directory hierarchies: [/Users/jre/dev/Ora]
+Stopped 1 worker daemon(s).
+EXECUTION TIMED OUT AND SUSPENDED

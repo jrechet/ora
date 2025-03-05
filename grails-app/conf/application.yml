@@ -92,6 +92,11 @@ grails:
       securityConfigType: "Annotation"
       rejectIfNoRule: false
       rejectPublicInvocations: false
+      interceptUrlMap:
+        - pattern: '/monitoring-ws/**'
+          access: ['permitAll']
+        - pattern: '/monitoring-ws'
+          access: ['permitAll']
       filterChain:
         chainMap:
           - pattern: '/assets/**'
@@ -107,12 +112,13 @@ grails:
           - pattern: '/auth/login'
             filters: 'none'
           - pattern: '/monitoring-ws/**'
-            filters: 'none'
-            security: 'none'
+            filters: 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter'
           - pattern: '/**'
             filters: 'JOINED_FILTERS'
       controllerAnnotations:
         staticRules:
+          - pattern: '/monitoring-ws/**'
+            access: ['permitAll']
           - pattern: '/assets/**'
             access: ['permitAll']
           - pattern: '/**/js/**'

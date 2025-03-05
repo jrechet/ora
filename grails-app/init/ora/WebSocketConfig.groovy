@@ -1,6 +1,7 @@
 package ora
 
 import ora.monitoring.websocket.MonitoringWebSocketHandler
+import ora.monitoring.websocket.MonitoringWebSocketSecurityInterceptor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket
@@ -11,15 +12,16 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 class WebSocketConfig implements WebSocketConfigurer {
 
-    private final MonitoringWebSocketHandler monitoringWebSocketHandler
+    @Autowired
+    private MonitoringWebSocketHandler monitoringWebSocketHandler
 
-    WebSocketConfig(MonitoringWebSocketHandler monitoringWebSocketHandler) {
-        this.monitoringWebSocketHandler = monitoringWebSocketHandler
-    }
+    @Autowired
+    private MonitoringWebSocketSecurityInterceptor securityInterceptor
 
     @Override
     void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(monitoringWebSocketHandler, "/monitoring-ws")
                 .setAllowedOrigins("*")
+                .addInterceptors(securityInterceptor)
     }
 }

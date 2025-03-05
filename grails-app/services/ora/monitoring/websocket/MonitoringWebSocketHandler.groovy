@@ -1,7 +1,7 @@
 package ora.monitoring.websocket
 
 import groovy.util.logging.Slf4j
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
 
 @Slf4j
-@Component
+@Service
 class MonitoringWebSocketHandler extends TextWebSocketHandler {
 
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>()
@@ -28,7 +28,33 @@ class MonitoringWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     void afterConnectionEstablished(WebSocketSession session) {
-        log.info "New WebSocket connection established: ${session.id}"
+        log.info "[DEBUG_LOG] New WebSocket connection established: ${session.id}"
+        log.info "[DEBUG_LOG] Session attributes: ${session.attributes}"
+
+        def securityContext = session.attributes.get("SPRING_SECURITY_CONTEXT")
+        def authentication = securityContext?.authentication
+
+        log.info "[DEBUG_LOG] Authentication from security context: ${authentication}"
+
+        if (!authentication?.isAuthenticated()) {
+            log.error "[DEBUG_LOG] No valid authentication found, closing connection"
+            session.close()
+            return
+        }
+
+        def hasRequiredRole = authentication.authorities?.any { 
+            it.authority in ['ROLE_ADMIN', 'ROLE_USER'] 
+        }
+
+        log.info "[DEBUG_LOG] Has required role: ${hasRequiredRole}"
+
+        if (!hasRequiredRole) {
+            log.error "[DEBUG_LOG] Insufficient privileges, closing connection"
+            session.close()
+            return
+        }
+
+        log.info "[DEBUG_LOG] Security check passed, proceeding with connection"
         sessions[session.id] = session
         sessionLocks[session.id] = new ReentrantLock()
         sendMessageToSession(session, "Connected to ORA monitoring")
