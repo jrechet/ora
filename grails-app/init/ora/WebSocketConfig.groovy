@@ -1,20 +1,20 @@
 package ora
 
-import ora.monitoring.websocket.MonitoringWebSocketHandler
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.socket.config.annotation.EnableWebSocket
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.web.socket.WebSocketHandler
-import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean
+import ora.monitoring.websocket.MonitoringWebSocketHandler
 
 /**
- * Configuration des WebSockets pour l'application.
- * Cette classe enregistre les handlers WebSocket et configure les endpoints.
+ * Configuration unique pour les WebSockets et la sécurité.
+ * Cette classe simple se charge uniquement de l'essentiel.
  */
 @Configuration
 @EnableWebSocket
@@ -25,29 +25,21 @@ class WebSocketConfig implements WebSocketConfigurer {
     private MonitoringWebSocketHandler monitoringWebSocketHandler
 
     /**
-     * Configure les limites de buffer pour les messages WebSocket
+     * Fournit un PasswordEncoder pour Spring Security.
      */
     @Bean
-    ServletServerContainerFactoryBean createWebSocketContainer() {
-        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean()
-        container.setMaxTextMessageBufferSize(8192)
-        container.setMaxBinaryMessageBufferSize(8192)
-        container.setMaxSessionIdleTimeout(60000L)
-        return container
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder()
     }
 
     @Override
     void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         log.info("Registering WebSocket handlers...")
         
-        // Configuration simple avec et sans SockJS
-        registry.addHandler(monitoringWebSocketHandler, "/monitoring-ws")
+        // Configuration WebSocket simplifiée à l'extrême
+        registry.addHandler(monitoringWebSocketHandler, "/ws-endpoint")
                 .setAllowedOrigins("*")
         
-        registry.addHandler(monitoringWebSocketHandler, "/monitoring-ws-sockjs")
-                .setAllowedOrigins("*")
-                .withSockJS()
-                
         log.info("WebSocket handlers registered successfully")
     }
 }

@@ -93,17 +93,9 @@ grails:
       rejectIfNoRule: false
       rejectPublicInvocations: false
       interceptUrlMap:
-        - pattern: '/monitoring-ws/**'
+        - pattern: '/ws-endpoint'
           access: ['permitAll']
-        - pattern: '/monitoring-ws'
-          access: ['permitAll']
-        - pattern: '/monitoring-ws/info'
-          access: ['permitAll']
-        - pattern: '/monitoring-ws/info/**'
-          access: ['permitAll']
-        - pattern: '/monitoring-ws/websocket'
-          access: ['permitAll']
-        - pattern: '/monitoring-ws/websocket/**'
+        - pattern: '/ws-endpoint/**'
           access: ['permitAll']
       filterChain:
         chainMap:
@@ -119,13 +111,21 @@ grails:
             filters: 'none'
           - pattern: '/auth/login'
             filters: 'none'
-          - pattern: '/monitoring-ws/**'
+          - pattern: '/ws-endpoint'
+            filters: 'none'
+          - pattern: '/ws-endpoint/**'
+            filters: 'none'
+          - pattern: '/websocket/**'
+            filters: 'none'
+          - pattern: '/websocket'
             filters: 'none'
           - pattern: '/**'
             filters: 'JOINED_FILTERS'
       controllerAnnotations:
         staticRules:
-          - pattern: '/monitoring-ws/**'
+          - pattern: '/ws-endpoint'
+            access: ['permitAll']
+          - pattern: '/ws-endpoint/**'
             access: ['permitAll']
           - pattern: '/assets/**'
             access: ['permitAll']
@@ -143,9 +143,6 @@ grails:
             access: ['permitAll']
           - pattern: '/error'
             access: ['permitAll']
-          - pattern: '/monitoring-ws/**'
-            access: ['permitAll']
-            position: 1
           - pattern: '/'
             access: ['ROLE_USER']
           - pattern: '/monitoring/**'

@@ -5,7 +5,7 @@ import io.micronaut.websocket.annotation.ClientWebSocket
 import io.micronaut.websocket.annotation.OnMessage
 import io.micronaut.websocket.annotation.OnOpen
 
-@ClientWebSocket("/monitoring-ws")
+@ClientWebSocket("/ws-endpoint")
 class WebSocketTestHandler {
     WebSocketSession session
     String lastReceivedMessage

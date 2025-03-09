@@ -47,7 +47,7 @@ class WebSocketIntegrationSpec extends Specification {
         println "[DEBUG_LOG] Created StandardWebSocketClient"
 
         when: "connecting to the WebSocket server"
-        def uri = new URI("ws://localhost:${serverPort}/monitoring-ws")
+        def uri = new URI("ws://localhost:${serverPort}/ws-endpoint")
         println "[DEBUG_LOG] Connecting to WebSocket at: $uri"
 
         def headers = new WebSocketHttpHeaders()

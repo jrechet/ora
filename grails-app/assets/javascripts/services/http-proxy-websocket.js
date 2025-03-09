@@ -17,7 +17,7 @@ const HttpProxyWebSocket = {
     connect: function() {
         try {
             const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            this.socket = new WebSocket(wsProtocol + '//' + window.location.host + '/monitoring-ws');
+            this.socket = new WebSocket(wsProtocol + '//' + window.location.host + '/ws-endpoint');
 
             // Bind des méthodes avec le bon contexte
             this.socket.onopen = this.onConnect.bind(this);

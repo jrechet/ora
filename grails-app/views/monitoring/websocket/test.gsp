@@ -106,7 +106,7 @@
         // Configuration
         const protocol = window.location.protocol === 'https:' ? 'https://' : 'http://';
         const wsBaseUrl = protocol + window.location.hostname + ':9999'; // à adapter si nécessaire
-        const wsEndpoint = 'monitoring-ws';
+        const wsEndpoint = 'ws-endpoint';
         
         // Éléments DOM
         const statusEl = document.getElementById('status');

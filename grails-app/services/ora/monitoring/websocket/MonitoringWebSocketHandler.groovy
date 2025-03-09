@@ -1,7 +1,7 @@
 package ora.monitoring.websocket
 
 import groovy.util.logging.Slf4j
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
 
 @Slf4j
-@Service
+@Component
 class MonitoringWebSocketHandler extends TextWebSocketHandler {
 
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>()
@@ -28,22 +28,10 @@ class MonitoringWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     void afterConnectionEstablished(WebSocketSession session) {
-        log.info "[DEBUG_LOG] New WebSocket connection established: ${session.id}"
-        log.info "[DEBUG_LOG] Session attributes: ${session.attributes}"
-        log.info "[DEBUG_LOG] Connection headers: ${session.handshakeHeaders}"
-        log.info "[DEBUG_LOG] URI: ${session.uri}"
-
-        // Accept all connections without checking authentication
-        log.info "[DEBUG_LOG] Connection accepted unconditionally"
+        log.info "New WebSocket connection established: ${session.id}"
         sessions[session.id] = session
         sessionLocks[session.id] = new ReentrantLock()
-        
-        try {
-            // Envoyer un message de bienvenue
-            sendMessageToSession(session, "Connected to ORA monitoring")
-        } catch (Exception e) {
-            log.error "[DEBUG_LOG] Error sending welcome message", e
-        }
+        sendMessageToSession(session, "Connected to ORA monitoring")
     }
 
     @Override
@@ -95,25 +83,14 @@ class MonitoringWebSocketHandler extends TextWebSocketHandler {
     private void sendMessageToSession(WebSocketSession session, String message) {
         def lock = sessionLocks.get(session.id)
         if (!lock) {
-            log.warn "No lock found for session ${session.id}, creating one"
-            lock = new ReentrantLock()
-            sessionLocks[session.id] = lock
+            log.warn "No lock found for session ${session.id}"
+            return
         }
 
         lock.lock()
         try {
             if (session.isOpen()) {
-                try {
-                    log.debug "Sending message to session ${session.id}: ${message}"
-                    session.sendMessage(new TextMessage(message))
-                    log.debug "Message sent successfully"
-                } catch (IOException e) {
-                    log.error "IO error sending message to session ${session.id}", e
-                } catch (Exception e) {
-                    log.error "Error sending message to session ${session.id}", e 
-                }
-            } else {
-                log.warn "Cannot send message to session ${session.id} - session closed"
+                session.sendMessage(new TextMessage(message))
             }
         } finally {
             lock.unlock()

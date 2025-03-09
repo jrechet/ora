@@ -147,18 +147,18 @@
                 
                 if (endpointType === 'native') {
                     // WebSocket natif
-                    const wsUrl = 'ws://' + hostname + ':' + port + '/monitoring-ws';
+                    const wsUrl = 'ws://' + hostname + ':' + port + '/ws-endpoint';
                     logMessage('Tentative de connexion WebSocket natif à ' + wsUrl);
                     
                     socket = new WebSocket(wsUrl);
                 } else {
                     // SockJS
-                    const sockjsUrl = 'http://' + hostname + ':' + port + '/monitoring-ws-sockjs';
+                    const sockjsUrl = 'http://' + hostname + ':' + port + '/ws-endpoint-sockjs';
                     logMessage('Tentative de connexion SockJS à ' + sockjsUrl);
                     
                     // Si SockJS était chargé, nous l'utiliserions ici
                     logMessage('SockJS non disponible, utilisation d\'une connexion WebSocket directe');
-                    socket = new WebSocket('ws://' + hostname + ':' + port + '/monitoring-ws-sockjs');
+                    socket = new WebSocket('ws://' + hostname + ':' + port + '/ws-endpoint-sockjs');
                 }
                 
                 // Configuration des événements
