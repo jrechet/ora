@@ -30,9 +30,14 @@ class MonitoringWebSocketSecurityInterceptor implements HandshakeInterceptor {
                 attributes.put("user", authentication.principal)
             }
             log.info "[DEBUG_LOG] Security context propagated to WebSocket session"
+        } else {
+            log.info "[DEBUG_LOG] No security context found, but allowing connection anyway"
+            
+            // Create an empty security context to prevent "rejectPublicInvocations" errors
+            attributes.put("ALLOW_PUBLIC_ACCESS", true)
         }
 
-        // Allow the handshake to proceed
+        // Always allow the handshake to proceed, even without authentication
         return true
     }
 

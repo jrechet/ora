@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de connexion WebSocket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .status {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+        .log {
+            height: 200px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .button-group {
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test de connexion WebSocket ORA</h1>
+        
+        <div class="status info" id="status">État: Déconnecté</div>
+        
+        <div class="button-group">
+            <button id="connectBtn">Connecter</button>
+            <button id="disconnectBtn" disabled>Déconnecter</button>
+        </div>
+        
+        <h2>Messages</h2>
+        <div class="log" id="log"></div>
+        
+        <div class="button-group">
+            <button id="sendMsgBtn" disabled>Envoyer un message de test</button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const wsBaseUrl = window.location.hostname + ':9999'; // à adapter si nécessaire
+        const wsEndpoint = 'monitoring-ws';
+        
+        // Éléments DOM
+        const statusEl = document.getElementById('status');
+        const logEl = document.getElementById('log');
+        const connectBtn = document.getElementById('connectBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+        const sendMsgBtn = document.getElementById('sendMsgBtn');
+        
+        // Variables
+        let socket = null;
+        
+        // Fonctions d'affichage
+        function updateStatus(message, type) {
+            statusEl.textContent = 'État: ' + message;
+            statusEl.className = 'status ' + type;
+        }
+        
+        function logMessage(message, type = 'info') {
+            const msgEl = document.createElement('div');
+            msgEl.className = type;
+            msgEl.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            logEl.appendChild(msgEl);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        // Gestion des événements WebSocket
+        function setupWebSocket() {
+            try {
+                const wsUrl = 'ws://' + wsBaseUrl + '/' + wsEndpoint;
+                logMessage('Tentative de connexion à ' + wsUrl);
+                
+                socket = new WebSocket(wsUrl);
+                
+                socket.onopen = function(event) {
+                    updateStatus('Connecté', 'success');
+                    logMessage('Connexion établie', 'success');
+                    connectBtn.disabled = true;
+                    disconnectBtn.disabled = false;
+                    sendMsgBtn.disabled = false;
+                };
+                
+                socket.onmessage = function(event) {
+                    logMessage('Message reçu: ' + event.data, 'info');
+                };
+                
+                socket.onclose = function(event) {
+                    let reason;
+                    if (event.code === 1000) {
+                        reason = 'Fermeture normale';
+                    } else if (event.code === 1001) {
+                        reason = 'Serveur en cours d\'arrêt ou navigateur fermé';
+                    } else if (event.code === 1002) {
+                        reason = 'Erreur de protocole';
+                    } else if (event.code === 1003) {
+                        reason = 'Type de données non supporté';
+                    } else if (event.code === 1005) {
+                        reason = 'Aucun code d\'état reçu';
+                    } else if (event.code === 1006) {
+                        reason = 'Connexion fermée anormalement';
+                    } else if (event.code === 1007) {
+                        reason = 'Message invalide';
+                    } else if (event.code === 1008) {
+                        reason = 'Violation de la politique';
+                    } else if (event.code === 1009) {
+                        reason = 'Message trop grand';
+                    } else if (event.code === 1010) {
+                        reason = 'Extensions négociées manquantes';
+                    } else if (event.code === 1011) {
+                        reason = 'Erreur interne du serveur';
+                    } else if (event.code === 1015) {
+                        reason = 'TLS handshake failed';
+                    } else {
+                        reason = 'Code inconnu: ' + event.code;
+                    }
+                    
+                    updateStatus('Déconnecté: ' + reason, 'error');
+                    logMessage('Connexion fermée: ' + reason, 'error');
+                    resetUI();
+                };
+                
+                socket.onerror = function(error) {
+                    updateStatus('Erreur', 'error');
+                    logMessage('Erreur WebSocket', 'error');
+                    console.error('WebSocket Error:', error);
+                };
+            } catch (error) {
+                updateStatus('Erreur de connexion', 'error');
+                logMessage('Exception: ' + error.message, 'error');
+                console.error('Connection setup error:', error);
+                resetUI();
+            }
+        }
+        
+        function sendTestMessage() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                const testMsg = JSON.stringify({
+                    type: 'test',
+                    data: 'Message de test ' + new Date().toISOString()
+                });
+                socket.send(testMsg);
+                logMessage('Message envoyé: ' + testMsg);
+            } else {
+                logMessage('Impossible d\'envoyer le message: non connecté', 'error');
+            }
+        }
+        
+        function closeConnection() {
+            if (socket) {
+                socket.close(1000, 'Fermé par l\'utilisateur');
+            }
+        }
+        
+        function resetUI() {
+            connectBtn.disabled = false;
+            disconnectBtn.disabled = true;
+            sendMsgBtn.disabled = true;
+        }
+        
+        // Event listeners
+        connectBtn.addEventListener('click', setupWebSocket);
+        disconnectBtn.addEventListener('click', closeConnection);
+        sendMsgBtn.addEventListener('click', sendTestMessage);
+        
+        // Info initiale
+        logMessage('Page chargée. Cliquez sur "Connecter" pour démarrer');
+    </script>
+</body>
+</html>

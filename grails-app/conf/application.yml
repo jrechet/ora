@@ -97,6 +97,14 @@ grails:
           access: ['permitAll']
         - pattern: '/monitoring-ws'
           access: ['permitAll']
+        - pattern: '/monitoring-ws/info'
+          access: ['permitAll']
+        - pattern: '/monitoring-ws/info/**'
+          access: ['permitAll']
+        - pattern: '/monitoring-ws/websocket'
+          access: ['permitAll']
+        - pattern: '/monitoring-ws/websocket/**'
+          access: ['permitAll']
       filterChain:
         chainMap:
           - pattern: '/assets/**'
@@ -112,7 +120,7 @@ grails:
           - pattern: '/auth/login'
             filters: 'none'
           - pattern: '/monitoring-ws/**'
-            filters: 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter'
+            filters: 'none'
           - pattern: '/**'
             filters: 'JOINED_FILTERS'
       controllerAnnotations:

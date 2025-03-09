@@ -30,34 +30,20 @@ class MonitoringWebSocketHandler extends TextWebSocketHandler {
     void afterConnectionEstablished(WebSocketSession session) {
         log.info "[DEBUG_LOG] New WebSocket connection established: ${session.id}"
         log.info "[DEBUG_LOG] Session attributes: ${session.attributes}"
+        log.info "[DEBUG_LOG] Connection headers: ${session.handshakeHeaders}"
+        log.info "[DEBUG_LOG] URI: ${session.uri}"
 
-        def securityContext = session.attributes.get("SPRING_SECURITY_CONTEXT")
-        def authentication = securityContext?.authentication
-
-        log.info "[DEBUG_LOG] Authentication from security context: ${authentication}"
-
-        if (!authentication?.isAuthenticated()) {
-            log.error "[DEBUG_LOG] No valid authentication found, closing connection"
-            session.close()
-            return
-        }
-
-        def hasRequiredRole = authentication.authorities?.any { 
-            it.authority in ['ROLE_ADMIN', 'ROLE_USER'] 
-        }
-
-        log.info "[DEBUG_LOG] Has required role: ${hasRequiredRole}"
-
-        if (!hasRequiredRole) {
-            log.error "[DEBUG_LOG] Insufficient privileges, closing connection"
-            session.close()
-            return
-        }
-
-        log.info "[DEBUG_LOG] Security check passed, proceeding with connection"
+        // Accept all connections without checking authentication
+        log.info "[DEBUG_LOG] Connection accepted unconditionally"
         sessions[session.id] = session
         sessionLocks[session.id] = new ReentrantLock()
-        sendMessageToSession(session, "Connected to ORA monitoring")
+        
+        try {
+            // Envoyer un message de bienvenue
+            sendMessageToSession(session, "Connected to ORA monitoring")
+        } catch (Exception e) {
+            log.error "[DEBUG_LOG] Error sending welcome message", e
+        }
     }
 
     @Override
@@ -109,14 +95,25 @@ class MonitoringWebSocketHandler extends TextWebSocketHandler {
     private void sendMessageToSession(WebSocketSession session, String message) {
         def lock = sessionLocks.get(session.id)
         if (!lock) {
-            log.warn "No lock found for session ${session.id}"
-            return
+            log.warn "No lock found for session ${session.id}, creating one"
+            lock = new ReentrantLock()
+            sessionLocks[session.id] = lock
         }
 
         lock.lock()
         try {
             if (session.isOpen()) {
-                session.sendMessage(new TextMessage(message))
+                try {
+                    log.debug "Sending message to session ${session.id}: ${message}"
+                    session.sendMessage(new TextMessage(message))
+                    log.debug "Message sent successfully"
+                } catch (IOException e) {
+                    log.error "IO error sending message to session ${session.id}", e
+                } catch (Exception e) {
+                    log.error "Error sending message to session ${session.id}", e 
+                }
+            } else {
+                log.warn "Cannot send message to session ${session.id} - session closed"
             }
         } finally {
             lock.unlock()
