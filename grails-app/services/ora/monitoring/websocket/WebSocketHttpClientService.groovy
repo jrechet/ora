@@ -45,6 +45,31 @@ class WebSocketHttpClientService {
 
         return response.data.toString()
     }
+    
+    /**
+     * Vérifie si un service est en bonne santé en vérifiant le code HTTP 200
+     * @param url L'URL du service à vérifier
+     * @return true si le service répond avec un code HTTP 200, false sinon
+     */
+    boolean isHealthy(String url) {
+        try {
+            def response = doHttpRequest([url: url])
+            if (!response) {
+                log.debug("Réponse vide lors de la vérification de la santé pour l'URL: ${url}")
+                return false
+            }
+            
+            boolean isHealthy = response.status == 200
+            if (!isHealthy) {
+                log.debug("Le service à l'URL ${url} a répondu avec le code HTTP: ${response.status}")
+            }
+            
+            return isHealthy
+        } catch (Exception e) {
+            log.debug("Erreur lors de la vérification de la santé pour l'URL: ${url}", e)
+            return false
+        }
+    }
 
     private Map doHttpRequest(Map request) {
         if (!handler.hasActiveSessions()) {

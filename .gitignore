@@ -16,3 +16,5 @@ out/
 .env
 /grails-app/conf/ora/
 gitpush.sh
+bin
+.codebuddy

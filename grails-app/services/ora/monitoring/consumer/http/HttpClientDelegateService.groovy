@@ -22,7 +22,7 @@ class HttpClientDelegateService {
 
     public final AtomicReference<String> currentMode = new AtomicReference<>('server')
 
-    private HttpClient getActiveClient() {
+    private IHttpClient getActiveClient() {
         def mode = currentMode.get()
 
         if (mode == 'websocket') {
@@ -36,6 +36,15 @@ class HttpClientDelegateService {
 
     String getForString(String url, String headers = null) {
         return getActiveClient().getForString(url, headers)
+    }
+    
+    /**
+     * Vérifie si un service est en bonne santé en vérifiant le code HTTP 200
+     * @param url L'URL du service à vérifier
+     * @return true si le service répond avec un code HTTP 200, false sinon
+     */
+    boolean isHealthy(String url) {
+        return getActiveClient().isHealthy(url)
     }
 
     void setMode(String mode) {

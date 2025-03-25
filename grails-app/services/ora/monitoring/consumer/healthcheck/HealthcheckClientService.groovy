@@ -19,10 +19,10 @@ class HealthcheckClientService {
 
         try {
             log.debug "Vérification du healthcheck pour l'URL: ${healthUrl}"
-            String response = httpClient.getForString(healthUrl)
-
-            if (!response) {
-                log.warn("Réponse vide du healthcheck")
+            boolean isHealthy = httpClient.isHealthy(healthUrl)
+            
+            if (!isHealthy) {
+                log.warn("Le service à l'URL ${healthUrl} n'est pas en bonne santé")
                 return false
             }
 
