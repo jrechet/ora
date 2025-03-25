@@ -1,0 +1,10 @@
+
+# Windsurf Rules
+Always run and fix the Spock Spec you creates
+If you are following a list of tasks, or devbook.md or other markdown list, always add a tick when it's done
+it's done when Test/Spec related ti the feature are passed.
+
+# Code
+It's a grails 6, respect grails conventions only
+Test with Spock only
+
