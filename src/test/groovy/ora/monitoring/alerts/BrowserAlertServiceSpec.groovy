@@ -2,15 +2,21 @@ package ora.monitoring.alerts
 
 import grails.testing.gorm.DataTest
 import grails.testing.services.ServiceUnitTest
+import ora.auth.User
 import spock.lang.Specification
 
 class BrowserAlertServiceSpec extends Specification implements ServiceUnitTest<BrowserAlertService>, DataTest {
 
     def setupSpec() {
-        mockDomain AlertPreference
+        mockDomains(AlertPreference, User)
     }
+    
+    User testUser
 
     def setup() {
+        // Créer un utilisateur de test
+        testUser = new User(username: 'testuser', password: 'password').save(flush: true)
+        
         // Mock de AlertPreferenceService
         service.alertPreferenceService = Mock(AlertPreferenceService)
         

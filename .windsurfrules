@@ -7,4 +7,17 @@ it's done when Test/Spec related ti the feature are passed.
 # Code
 It's a grails 6, respect grails conventions only
 Test with Spock only
+Utilise uniquement les capacité de Mock de Spock pour créer les mock
+Tous les accès aux données doivent être faites via les services.
+
+# css
+classe de bulma.css en priorité
+uniquement des boutons outlined
+jamais de lien avec underline
+jamais de bleu sur fond noir
+
+# Controller
+utilise toujours des objets Command pour récupérer les données du formulaire
+ne passe jamais 'params' directement à la couche service
+
 

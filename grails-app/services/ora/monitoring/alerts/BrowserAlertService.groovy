@@ -3,6 +3,7 @@ package ora.monitoring.alerts
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
 import groovy.json.JsonOutput
+import java.util.UUID
 
 /**
  * Service pour envoyer des alertes au navigateur.
@@ -70,6 +71,21 @@ class BrowserAlertService implements GrailsConfigurationAware {
             log.info("Envoi d'alerte navigateur - Titre: ${title}, Sévérité: ${severity}")
             log.debug("Message JSON: ${alertJson}")
             
+            // Création d'une notification pour l'interface web
+            def notification = [
+                id: UUID.randomUUID().toString(),
+                title: title,
+                message: message,
+                severity: severity,
+                timestamp: new Date()
+            ]
+            
+            // Stockage de la notification pour récupération ultérieure
+            storeNotification(notification)
+            
+            // Diffusion de la notification via WebSocket
+            broadcastNotification(notification)
+            
             // TODO: Implémenter l'envoi réel via WebSocket
             // Cela pourrait ressembler à :
             // WebSocketService.broadcastMessage(alertJson)
@@ -79,6 +95,26 @@ class BrowserAlertService implements GrailsConfigurationAware {
             log.error("Erreur lors de l'envoi de l'alerte navigateur: ${e.message}", e)
             return false
         }
+    }
+    
+    /**
+     * Stocke une notification pour récupération ultérieure.
+     * @param notification La notification à stocker
+     */
+    private void storeNotification(Map notification) {
+        // Dans une implémentation réelle, on stockerait la notification en base de données
+        // ou dans un cache distribué pour permettre sa récupération par les clients web
+        log.debug("Stockage de la notification: ${notification.id}")
+    }
+    
+    /**
+     * Diffuse une notification via WebSocket.
+     * @param notification La notification à diffuser
+     */
+    private void broadcastNotification(Map notification) {
+        // Dans une implémentation réelle, on utiliserait un mécanisme de WebSocket
+        // pour diffuser la notification à tous les clients connectés
+        log.debug("Diffusion de la notification: ${notification.id}")
     }
     
     /**

@@ -2,15 +2,20 @@ package ora.monitoring.alerts
 
 import grails.testing.gorm.DataTest
 import grails.testing.services.ServiceUnitTest
+import ora.auth.User
 import spock.lang.Specification
 
 class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<EmailAlertService>, DataTest {
 
     def setupSpec() {
-        mockDomain AlertPreference
+        mockDomains(AlertPreference, User)
     }
+    
+    User testUser
 
     def setup() {
+        testUser = new User(username: 'testuser', password: 'password').save(flush: true)
+        
         // Mock de AlertPreferenceService
         service.alertPreferenceService = Mock(AlertPreferenceService)
         
@@ -18,8 +23,7 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
         service.configureForTests([
             mailFrom: "test@example.com",
             mailHost: "smtp.example.com",
-            mailPort: 587,
-            emailRecipients: "admin@example.com, support@example.com"
+            mailPort: 587
         ])
     }
 
@@ -53,12 +57,7 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
     void "test sendAlert returns false when no recipients are configured"() {
         given:
         service.alertPreferenceService.isAlertTypeEnabled('email') >> true
-        service.configureForTests([
-            mailFrom: "test@example.com",
-            mailHost: "smtp.example.com",
-            mailPort: 587,
-            emailRecipients: ""
-        ])
+        service.alertPreferenceService.getEmailRecipients() >> []
         
         when:
         def result = service.sendAlert("Test Alert", "This is a test alert")
@@ -70,6 +69,7 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
     void "test sendAlert returns true when email alerts are enabled and recipients are configured"() {
         given:
         service.alertPreferenceService.isAlertTypeEnabled('email') >> true
+        service.alertPreferenceService.getEmailRecipients() >> ["admin@example.com", "support@example.com"]
         
         when:
         def result = service.sendAlert("Test Alert", "This is a test alert")
@@ -81,6 +81,7 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
     void "test sendAlert with different severity levels"() {
         given:
         service.alertPreferenceService.isAlertTypeEnabled('email') >> true
+        service.alertPreferenceService.getEmailRecipients() >> ["admin@example.com"]
         
         expect:
         service.sendAlert("Info Alert", "This is an info alert", "info")
@@ -96,8 +97,7 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
             mailHost: 'custom-smtp.example.com',
             mailPort: 465,
             mailUsername: 'user',
-            mailPassword: 'pass',
-            emailRecipients: 'user1@example.com, user2@example.com'
+            mailPassword: 'pass'
         ])
         
         expect:
@@ -106,7 +106,6 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
         service.mailPort == 465
         service.mailUsername == 'user'
         service.mailPassword == 'pass'
-        service.alertRecipients == ['user1@example.com', 'user2@example.com']
     }
     
     void "test default values are used when configuration is missing"() {
@@ -119,6 +118,5 @@ class EmailAlertServiceSpec extends Specification implements ServiceUnitTest<Ema
         service.mailPort == 25
         service.mailUsername == ''
         service.mailPassword == ''
-        service.alertRecipients.isEmpty()
     }
 }

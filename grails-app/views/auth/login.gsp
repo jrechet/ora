@@ -46,7 +46,7 @@
                         </div>
                         <div class="field">
                             <div class="control has-text-centered">
-                                <button type="submit" class="button is-primary">
+                                <button type="submit" class="button is-primary is-outlined">
                                     <span class="icon">
                                         <i class="fas fa-sign-in-alt"></i>
                                     </span>

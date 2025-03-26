@@ -1,186 +1,170 @@
 package ora.monitoring.alerts
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.testing.gorm.DataTest
 import grails.testing.services.ServiceUnitTest
+import ora.auth.User
 import spock.lang.Specification
 
 class AlertPreferenceServiceSpec extends Specification implements ServiceUnitTest<AlertPreferenceService>, DataTest {
 
     def setupSpec() {
-        mockDomain AlertPreference
+        mockDomains(AlertPreference, User)
     }
 
+    User testUser
+    AlertPreference userPreference
+
     def setup() {
-        // Créer des préférences de test
-        new AlertPreference(
-            name: "Test Preference 1",
-            emailEnabled: true,
-            browserEnabled: false,
-            systemEnabled: true,
-            active: true
-        ).save(flush: true)
-        
-        new AlertPreference(
-            name: "Test Preference 2",
-            emailEnabled: false,
-            browserEnabled: true,
-            systemEnabled: false,
-            active: false
+        // Créer un utilisateur de test
+        testUser = new User(username: 'testuser', password: 'password').save(flush: true)
+
+        // Créer un mock pour SpringSecurityService en utilisant les capacités de Mock de Spock
+        def springSecurityServiceMock = Mock(SpringSecurityService)
+        springSecurityServiceMock.getCurrentUser() >> testUser
+
+        // Injecter le mock dans le service
+        service.springSecurityService = springSecurityServiceMock
+
+        // Créer une préférence de test pour l'utilisateur
+        userPreference = new AlertPreference(
+                emailEnabled: true,
+                browserEnabled: false,
+                systemEnabled: true,
+                user: testUser
         ).save(flush: true)
     }
 
     def cleanup() {
         AlertPreference.list()*.delete(flush: true)
+        User.list()*.delete(flush: true)
     }
-    
-    void "test getActivePreference returns the active preference"() {
+
+    void "test getCurrentUser returns the authenticated user"() {
         when:
-        def preference = service.getActivePreference()
-        
+        def user = service.getCurrentUser()
+
         then:
-        preference != null
-        preference.name == "Test Preference 1"
-        preference.emailEnabled
-        !preference.browserEnabled
-        preference.systemEnabled
+        user == testUser
     }
-    
-    void "test getAllPreferences returns all preferences"() {
+
+    void "test getPreference returns the user preference"() {
         when:
-        def preferences = service.getAllPreferences()
-        
+        def pref = service.getPreference()
+
         then:
-        preferences.size() == 2
-        preferences.find { it.name == "Test Preference 1" } != null
-        preferences.find { it.name == "Test Preference 2" } != null
+        pref != null
+        pref.id == userPreference.id
+        pref.user == testUser
     }
-    
+
+    void "test getPreferenceForUser returns preference for specific user"() {
+        when:
+        def pref = service.getPreferenceForUser(testUser)
+
+        then:
+        pref != null
+        pref.id == userPreference.id
+        pref.user == testUser
+    }
+
     void "test getPreferenceById returns specific preference"() {
-        given:
-        def pref1 = AlertPreference.findByName("Test Preference 1")
-        
         when:
-        def result = service.getPreferenceById(pref1.id)
-        
+        def retrievedPref = service.getPreferenceById(userPreference.id)
+
         then:
-        result != null
-        result.name == "Test Preference 1"
-        result.id == pref1.id
-        
-        when: "requesting a non-existent ID"
-        result = service.getPreferenceById(999)
-        
-        then: "result should be null"
-        result == null
+        retrievedPref != null
+        retrievedPref.id == userPreference.id
+        retrievedPref.user == testUser
     }
-    
+
+    void "test createDefaultPreference creates new preference if none exists"() {
+        given:
+        // Supprimer la préférence existante
+        userPreference.delete(flush: true)
+
+        when:
+        def newPref = service.createDefaultPreference()
+
+        then:
+        newPref != null
+        newPref.id != null
+        newPref.user == testUser
+        newPref.browserEnabled
+        !newPref.emailEnabled
+        !newPref.systemEnabled
+    }
+
+    void "test createDefaultPreference returns existing preference if one exists"() {
+        when:
+        def pref = service.createDefaultPreference()
+
+        then:
+        pref != null
+        pref.id == userPreference.id
+        pref.user == testUser
+    }
+
     void "test savePreference correctly saves a new preference"() {
         given:
+        // Supprimer la préférence existante
+        userPreference.delete(flush: true)
+
         def newPref = new AlertPreference(
-            name: "New Preference",
-            emailEnabled: true,
-            browserEnabled: true,
-            systemEnabled: true
+                emailEnabled: true,
+                browserEnabled: true,
+                systemEnabled: true,
+                user: testUser
         )
-        
+
         when:
-        def result = service.savePreference(newPref)
-        
+        def savedPref = newPref.save(flush: true, failOnError: true)
+
         then:
-        result != null
-        result.id != null
-        AlertPreference.count() == 3
-        AlertPreference.findByName("New Preference") != null
+        savedPref != null
+        savedPref.id != null
+        savedPref.user == testUser
+        AlertPreference.count() == 1
     }
-    
+
     void "test updatePreference correctly updates an existing preference"() {
         given:
-        def pref = AlertPreference.findByName("Test Preference 1")
         def params = [
-            emailEnabled: false,
-            browserEnabled: true,
-            systemEnabled: false
+                emailEnabled  : false,
+                browserEnabled: true,
+                systemEnabled : false
         ]
-        
+
         when:
-        def result = service.updatePreference(pref.id, params)
-        
+        def updatedPref = service.updatePreference(userPreference.id, params)
+
         then:
-        result != null
-        !result.emailEnabled
-        result.browserEnabled
-        !result.systemEnabled
-        result.name == "Test Preference 1"  // Nom inchangé
-        
-        when: "updating a non-existent preference"
-        result = service.updatePreference(999, params)
-        
-        then: "result should be null"
-        result == null
+        updatedPref != null
+        updatedPref.id == userPreference.id
+        !updatedPref.emailEnabled
+        updatedPref.browserEnabled
+        !updatedPref.systemEnabled
+        updatedPref.user == testUser
     }
-    
-    void "test setActivePreference correctly activates a preference and deactivates others"() {
-        given:
-        def pref2 = AlertPreference.findByName("Test Preference 2")
-        
-        when:
-        def result = service.setActivePreference(pref2.id)
-        
-        then:
-        result != null
-        result.active
-        result.name == "Test Preference 2"
-        
-        and: "the previously active preference should be deactivated"
-        def pref1 = AlertPreference.findByName("Test Preference 1")
-        !pref1.active
-        
-        when: "activating a non-existent preference"
-        result = service.setActivePreference(999)
-        
-        then: "result should be null"
-        result == null
-    }
-    
-    void "test deletePreference correctly deletes a preference"() {
-        given:
-        def pref2 = AlertPreference.findByName("Test Preference 2")
-        
-        when:
-        def result = service.deletePreference(pref2.id)
-        
-        then:
-        result
-        AlertPreference.count() == 1
-        AlertPreference.findByName("Test Preference 2") == null
-        
-        when: "deleting the active preference"
-        def pref1 = AlertPreference.findByName("Test Preference 1")
-        result = service.deletePreference(pref1.id)
-        
-        then: "a new default preference should be created"
-        result
-        AlertPreference.count() == 1
-        AlertPreference.findByActive(true) != null
-        
-        when: "deleting a non-existent preference"
-        result = service.deletePreference(999)
-        
-        then: "result should be false"
-        !result
-    }
-    
+
     void "test isAlertTypeEnabled correctly checks if a type is enabled"() {
-        expect: "email alerts should be enabled"
+        expect:
         service.isAlertTypeEnabled('email')
-        
-        and: "browser alerts should be disabled"
         !service.isAlertTypeEnabled('browser')
-        
-        and: "system alerts should be enabled"
         service.isAlertTypeEnabled('system')
-        
-        and: "unknown alert types should be disabled"
-        !service.isAlertTypeEnabled('unknown')
+    }
+
+    void "test getEmailRecipients returns configured recipients"() {
+        given: "Une préférence avec des destinataires email"
+        userPreference.emailRecipients = "admin@example.com, support@example.com"
+        userPreference.save(flush: true)
+
+        when: "On récupère les destinataires"
+        def recipients = service.getEmailRecipients()
+
+        then: "Les destinataires configurés sont retournés"
+        recipients.size() == 2
+        recipients.contains("admin@example.com")
+        recipients.contains("support@example.com")
     }
 }

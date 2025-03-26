@@ -36,38 +36,38 @@
 ## 3. Controllers
 
 ### 3.1 Controllers
-- [ ] Créer `BackofficeController`
+- [x] Créer `BackofficeController`
   - Action par défaut pour afficher la page d'accueil du backoffice
-- [ ] Créer `AlertPreferenceController`
+- [x] Créer `AlertPreferenceController`
   - Action pour afficher le formulaire des préférences d'alerte
   - Action pour sauvegarder les préférences d'alerte
 
 ## 4. Views et Templates
 
 ### 4.1 Layout Template Backoffice
-- [ ] Créer `grails-app/views/layouts/backoffice.gsp`
+- [x] Créer `grails-app/views/layouts/backoffice.gsp`
   - Implémenter le menu latéral fixe
   - Intégrer les styles nécessaires
   - Définir la structure de base des pages backoffice
 
 ### 4.2 Pages et Partials
-- [ ] Créer `grails-app/views/backoffice/index.gsp` (page d'accueil du backoffice)
-- [ ] Créer `grails-app/views/backoffice/_sideMenu.gsp` (template du menu latéral)
-- [ ] Créer `grails-app/views/alertPreference/edit.gsp` (formulaire des préférences d'alerte)
+- [x] Créer `grails-app/views/backoffice/index.gsp` (page d'accueil du backoffice)
+- [x] Créer `grails-app/views/backoffice/_sideMenu.gsp` (template du menu latéral)
+- [x] Créer `grails-app/views/alertPreference/edit.gsp` (formulaire des préférences d'alerte)
   - Intégrer les toggles pour Email, Navigateur et Système
 
 ### 4.3 Assets (CSS/JS)
-- [ ] Créer/Modifier les fichiers CSS pour le layout backoffice
-- [ ] Créer/Modifier les fichiers JS pour la gestion des toggles
+- [x] Créer/Modifier les fichiers CSS pour le layout backoffice
+- [x] Créer/Modifier les fichiers JS pour la gestion des toggles
 
 ## 5. Navigation et Intégration
 
 ### 5.1 Ajout du lien dans la barre de navigation
-- [ ] Modifier `grails-app/views/layouts/monitoring.gsp`
+- [x] Modifier `grails-app/views/layouts/monitoring.gsp`
   - Ajouter un lien "Backoffice" dans la barre de navigation
 
 ### 5.2 Configuration des routes
-- [ ] Mettre à jour UrlMappings.groovy pour les nouvelles routes backoffice
+- [x] Mettre à jour UrlMappings.groovy pour les nouvelles routes backoffice
 
 ## 6. Tests d'Intégration
 - [ ] Tester la navigation entre pages
@@ -77,3 +77,32 @@
 ## 7. Documentation
 - [ ] Documenter les nouvelles fonctionnalités
 - [ ] Mettre à jour la documentation utilisateur
+
+## 8. Corrections et améliorations
+
+### 8.1 Interface utilisateur
+- [x] Harmoniser la navbar du backoffice avec celle du monitoring
+  - Conservation du sélecteur de thème (sombre/clair)
+  - Maintien de la cohérence visuelle entre les sections
+- [x] Retirer les sous-menus inutiles pour éviter la confusion
+- [x] Refactoriser tous les composants pour utiliser uniquement Bulma.css
+  - Conversion des classes CSS personnalisées en classes Bulma
+  - Utilisation des composants natifs de Bulma (box, notification, etc.)
+
+### 8.2 Préférences d'alerte
+- [x] Créer un composant toggle switch cohérent avec l'interface
+  - Même style que le toggle du thème sombre/clair
+  - Réutilisable dans toute l'application
+- [x] Simplifier la configuration des alertes
+  - Suppression de la notion de configurations multiples
+  - Un utilisateur n'a désormais qu'une seule configuration possible
+  - Redirection directe vers l'édition de la configuration active
+- [x] Améliorer l'ergonomie du formulaire d'édition
+  - Organisation plus claire des champs
+  - Meilleure hiérarchie visuelle
+  - Messages d'aide contextuelle
+
+### 8.3 Structure du code
+- [x] Simplifier le contrôleur AlertPreferenceController
+  - Retrait des méthodes liées à la gestion de configurations multiples
+  - Optimisation des rediractions et des messages flash

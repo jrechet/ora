@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="has-text-centered">
-                    <g:link controller="monitoring" action="index" class="button is-primary">
+                    <g:link controller="monitoring" action="index" class="button is-primary is-outlined">
                         <span class="icon">
                             <i class="fas fa-home"></i>
                         </span>

@@ -45,7 +45,7 @@
 
 /* État actif */
 input:checked + .slider {
-    background-color: #2d2d2d;
+    background-color: rgba(74, 222, 128, 0.85);
 }
 
 input:checked + .slider:before {
@@ -159,7 +159,7 @@ input:checked + .slider:before {
 }
 
 [data-theme="dark"] .button.is-ghost:hover {
-    color: #3273dc;
+    color: #e4e4e4;
 }
 
 [data-theme="dark"] .footer {
@@ -195,11 +195,11 @@ input:checked + .slider:before {
 
 /* Styles pour les liens en mode sombre */
 [data-theme="dark"] a {
-    color: #3273dc;
+    color: #e4e4e4;
 }
 
 [data-theme="dark"] a:hover {
-    color: #4a9eff;
+    color: #e4e4e4;
 }
 
 [data-theme="dark"] .card-content a {

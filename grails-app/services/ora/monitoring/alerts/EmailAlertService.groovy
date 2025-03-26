@@ -17,7 +17,6 @@ class EmailAlertService implements GrailsConfigurationAware {
     Integer mailPort
     String mailUsername
     String mailPassword
-    List<String> alertRecipients = []
     
     @Override
     void setConfiguration(Config co) {
@@ -26,11 +25,6 @@ class EmailAlertService implements GrailsConfigurationAware {
         mailPort = co.getProperty('grails.mail.port', Integer) ?: 25
         mailUsername = co.getProperty('grails.mail.username', String) ?: ''
         mailPassword = co.getProperty('grails.mail.password', String) ?: ''
-        
-        def recipients = co.getProperty('ora.monitoring.alert.emailRecipients', String) ?: ''
-        if (recipients) {
-            alertRecipients = recipients.split(',').collect { it.trim() }
-        }
     }
     
     /**
@@ -42,11 +36,6 @@ class EmailAlertService implements GrailsConfigurationAware {
         mailPort = config.mailPort ?: 25
         mailUsername = config.mailUsername ?: ''
         mailPassword = config.mailPassword ?: ''
-        
-        def recipients = config.emailRecipients ?: ''
-        if (recipients) {
-            alertRecipients = recipients.split(',').collect { it.trim() }
-        }
     }
     
     /**
@@ -55,6 +44,14 @@ class EmailAlertService implements GrailsConfigurationAware {
      */
     boolean isEnabled() {
         return alertPreferenceService.isAlertTypeEnabled('email')
+    }
+    
+    /**
+     * Récupère la liste des destinataires email configurés pour l'utilisateur connecté
+     * @return Liste des adresses email
+     */
+    List<String> getAlertRecipients() {
+        return alertPreferenceService.getEmailRecipients()
     }
     
     /**
@@ -70,7 +67,8 @@ class EmailAlertService implements GrailsConfigurationAware {
             return false
         }
         
-        if (alertRecipients.isEmpty()) {
+        List<String> recipients = getAlertRecipients()
+        if (recipients.isEmpty()) {
             log.warn("Aucun destinataire configuré pour les alertes email")
             return false
         }
@@ -79,12 +77,12 @@ class EmailAlertService implements GrailsConfigurationAware {
             // Simulation d'envoi d'email pour le moment
             // Dans une implémentation réelle, on utiliserait le plugin mail de Grails
             log.info("Envoi d'alerte email - Titre: ${title}, Sévérité: ${severity}")
-            log.debug("Destinataires: ${alertRecipients.join(', ')}")
+            log.debug("Destinataires: ${recipients.join(', ')}")
             log.debug("Message: ${message}")
             
             // TODO: Implémenter l'envoi réel avec le plugin mail de Grails
             // sendMail {
-            //    to alertRecipients
+            //    to recipients
             //    from mailFrom
             //    subject "[ORA ${severity.toUpperCase()}] ${title}"
             //    html message

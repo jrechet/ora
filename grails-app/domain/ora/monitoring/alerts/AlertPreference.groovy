@@ -1,5 +1,9 @@
 package ora.monitoring.alerts
 
+import ora.auth.User
+
+import java.time.LocalDateTime
+
 /**
  * Représente les préférences d'alerte dans l'application.
  * Ces préférences définissent comment l'utilisateur souhaite être notifié
@@ -9,46 +13,33 @@ class AlertPreference {
 
     /** Active/désactive les notifications par email */
     boolean emailEnabled = false
-    
+
     /** Active/désactive les notifications dans le navigateur */
-    boolean browserEnabled = true
-    
+    boolean browserEnabled = false
+
     /** Active/désactive les notifications système (windows, macos) */
     boolean systemEnabled = false
-    
-    /** Indique si cette configuration est la configuration active */
-    boolean active = true
-    
-    /** Nom de la configuration (pour permettre plusieurs configurations) */
-    String name = "Default"
-    
+
+    /** Liste des destinataires email pour cet utilisateur */
+    String emailRecipients
+
     /** Date de création */
-    Date dateCreated
-    
+    LocalDateTime dateCreated
+
     /** Date de dernière modification */
-    Date lastUpdated
+    LocalDateTime lastUpdated
+
+    static belongsTo = [user: User]
 
     static constraints = {
-        name blank: false, nullable: false, unique: true
+        user nullable: false, unique: true
+        emailRecipients nullable: true, blank: true
         dateCreated nullable: true
         lastUpdated nullable: true
     }
-    
+
     static mapping = {
         table 'alert_preferences'
         version true
-    }
-    
-    /**
-     * Méthode utilitaire pour récupérer la configuration active.
-     * @return La configuration active ou une nouvelle configuration par défaut si aucune n'existe
-     */
-    static AlertPreference getActivePreference() {
-        def preference = AlertPreference.findByActive(true)
-        if (!preference) {
-            preference = new AlertPreference(active: true)
-            preference.save(flush: true)
-        }
-        return preference
     }
 }

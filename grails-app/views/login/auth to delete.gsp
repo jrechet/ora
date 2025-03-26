@@ -42,7 +42,7 @@
 
                     <div class="field">
                         <div class="control">
-                            <button class="button is-primary is-fullwidth" type="submit">
+                            <button class="button is-primary is-outlined is-fullwidth" type="submit">
                                 <span class="icon">
                                     <i class="fas fa-sign-in-alt"></i>
                                 </span>
