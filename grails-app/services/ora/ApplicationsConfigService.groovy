@@ -4,29 +4,20 @@ import grails.config.Config
 import groovy.util.logging.Slf4j
 import org.grails.config.PropertySourcesConfig
 import org.grails.config.yaml.YamlPropertySourceLoader
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.MapPropertySource
 import org.springframework.core.io.ResourceLoader
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
-import org.springframework.stereotype.Component
 
 @Slf4j
-@Component
-@Configuration
-class ApplicationsConfig {
+class ApplicationsConfigService {
 
-    private static final String DEFAULT_CONFIG_PATH = "classpath:ora/"
-    private static final String CONFIG_PATH_ENV_VAR = "ORA_CONFIG_PATH"
-
-    @Autowired
     ResourceLoader resourceLoader
 
     private static String getConfigPath() {
-        def configPath = System.getenv(CONFIG_PATH_ENV_VAR)
+        def configPath = System.getenv("ORA_CONFIG_PATH")
         if (!configPath) {
-            log.debug("No custom config path found in environment variable ${CONFIG_PATH_ENV_VAR}, using default path: ${DEFAULT_CONFIG_PATH}")
-            return DEFAULT_CONFIG_PATH
+            log.debug("No custom config path found in environment variable ORA_CONFIG_PATH, using default path: classpath:ora/")
+            return "classpath:ora/"
         }
 
         // Si le chemin ne se termine pas par un slash, on l'ajoute

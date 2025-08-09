@@ -90,7 +90,7 @@ class AlertPreferenceServiceSpec extends Specification implements ServiceUnitTes
         newPref != null
         newPref.id != null
         newPref.user == testUser
-        newPref.browserEnabled
+        !newPref.browserEnabled
         !newPref.emailEnabled
         !newPref.systemEnabled
     }
