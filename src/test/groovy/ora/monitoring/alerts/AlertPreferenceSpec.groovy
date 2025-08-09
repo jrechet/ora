@@ -23,7 +23,7 @@ class AlertPreferenceSpec extends Specification implements DomainUnitTest<AlertP
 
         then:
         !preference.emailEnabled
-        preference.browserEnabled
+        !preference.browserEnabled
         !preference.systemEnabled
     }
 

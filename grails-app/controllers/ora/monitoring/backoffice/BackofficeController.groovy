@@ -17,9 +17,8 @@ class BackofficeController {
     def index() {
         // Données pour la page d'accueil du backoffice
         [
-            pageTitle: "Tableau de bord",
-            currentSection: "alertPreferences"
+                pageTitle     : "Tableau de bord",
+                currentSection: "dashboard"
         ]
-        render view: '/alertPreference/index'
     }
 }
