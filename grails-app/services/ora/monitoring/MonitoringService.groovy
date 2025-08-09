@@ -4,7 +4,7 @@ import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
 import grails.gorm.transactions.Transactional
 import groovy.util.logging.Slf4j
-import ora.ApplicationsConfig
+import ora.ApplicationsConfigService
 import ora.monitoring.apps.ApplicationInstance
 import ora.monitoring.apps.Environment
 import ora.monitoring.apps.Project
@@ -23,8 +23,7 @@ import java.util.concurrent.CompletableFuture
 @Transactional
 class MonitoringService implements GrailsConfigurationAware {
 
-    @Autowired
-    ApplicationsConfig applicationsConfig
+    ApplicationsConfigService applicationsConfigService
 
     HealthcheckClientService healthcheckClientService
     CodeCoverageClientService codeCoverageClientService
@@ -38,7 +37,7 @@ class MonitoringService implements GrailsConfigurationAware {
 
     @Override
     void setConfiguration(Config co) {
-        def appConfig = applicationsConfig.loadApplicationsConfig()
+        def appConfig = applicationsConfigService.loadApplicationsConfig()
         def env = grails.util.Environment.current.name
 
         apps = appConfig.getProperty("environments.${env}.applications.monitoring.apps", Map) ?: appConfig.getProperty("environments.development.applications.monitoring.apps", Map)
